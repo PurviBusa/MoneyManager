@@ -13,8 +13,11 @@
         android:theme="@style/Theme.MoneyManager"
         tools:targetApi="31">
         <activity
+            android:name=".activities.AddActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.SplashScreen"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,14 +26,11 @@
         </activity>
         <activity
             android:name=".activities.Mainactivity"
-            android:exported="true"/>
-
+            android:exported="true" />
         <activity
             android:name=".activities.IntroScreen"
             android:exported="true"
-            android:theme="@style/IntroStyle">
-
-        </activity>
+            android:theme="@style/IntroStyle"></activity>
     </application>
 
 </manifest>

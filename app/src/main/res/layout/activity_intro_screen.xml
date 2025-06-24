@@ -81,7 +81,7 @@
             android:text="Got it"
             android:textColor="@color/white"
             android:textSize="30sp"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
 
     </RelativeLayout>

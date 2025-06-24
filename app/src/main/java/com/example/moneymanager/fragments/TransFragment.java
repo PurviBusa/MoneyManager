@@ -12,10 +12,10 @@ import com.example.moneymanager.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link DailyExpence#newInstance} factory method to
+ * Use the {@link TransFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DailyExpence extends Fragment {
+public class TransFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class DailyExpence extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public DailyExpence() {
+    public TransFragment() {
         // Required empty public constructor
     }
 
@@ -39,8 +39,8 @@ public class DailyExpence extends Fragment {
      * @return A new instance of fragment DailyExpence.
      */
     // TODO: Rename and change types and number of parameters
-    public static DailyExpence newInstance(String param1, String param2) {
-        DailyExpence fragment = new DailyExpence();
+    public static TransFragment newInstance(String param1, String param2) {
+        TransFragment fragment = new TransFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +61,6 @@ public class DailyExpence extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_daily_expence, container, false);
+        return inflater.inflate(R.layout.trans_fragment, container, false);
     }
 }
