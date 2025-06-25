@@ -10,22 +10,7 @@
     tools:context=".activities.Mainactivity">
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="115dp"
-        android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="@dimen/_43sdp"
-            android:layout_height="@dimen/_43sdp"
-            android:src="@drawable/add"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="@dimen/_30sdp"
-            />
-
-    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/bottom_nav"

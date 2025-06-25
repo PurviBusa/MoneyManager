@@ -5,16 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".fragments.TransFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/todoLL"
-        android:clipToPadding="false"
-        android:paddingHorizontal="15dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="70dp"
-        android:visibility="visible" />
 
 
     <RelativeLayout
@@ -284,6 +274,22 @@
         android:gravity="top"
         android:inputType="textMultiLine"
         android:padding="10dp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="115dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/_43sdp"
+            android:layout_height="@dimen/_43sdp"
+            android:src="@drawable/add"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/_30sdp"
+            />
+
+    </RelativeLayout>
 
 
 </RelativeLayout>

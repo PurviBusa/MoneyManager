@@ -37,7 +37,7 @@ public class IntroScreen extends AppCompatActivity {
 
 
         if (restorePrefData()) {
-            Intent intent = new Intent(getApplicationContext(), Mainactivity.class);
+            Intent intent = new Intent(getApplicationContext(), AddActivity.class);
             startActivity(intent);
             finish();
         }
@@ -160,7 +160,7 @@ public class IntroScreen extends AppCompatActivity {
         if (i == 0) {
             firstArrow.setVisibility(View.GONE);
             txtGotIt.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             firstArrow.setVisibility(View.VISIBLE);
             txtGotIt.setVisibility(View.GONE);
         }
