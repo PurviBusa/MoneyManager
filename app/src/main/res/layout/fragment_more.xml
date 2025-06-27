@@ -34,6 +34,7 @@
 
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewconfi"
         android:layout_width="@dimen/_300sdp"
         android:layout_height="@dimen/_50sdp"
         android:layout_below="@id/viewSetting"
@@ -51,6 +52,9 @@
             android:src="@drawable/setting" />
 
         <TextView
+
+
+            android:id="@+id/configuration"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_33sdp"
             android:layout_marginVertical="@dimen/_10sdp"
@@ -70,6 +74,126 @@
 
 
     </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewAccount"
+        android:layout_width="@dimen/_300sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_below="@id/cardViewconfi"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="9dp"
+        android:layout_centerInParent="true"
+        app:cardCornerRadius="@dimen/_5sdp"
+        app:cardUseCompatPadding="true">
+
+        <ImageView
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/_7sdp"
+            android:padding="@dimen/_2sdp"
+            android:src="@drawable/account" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_33sdp"
+            android:layout_marginVertical="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_40sdp"
+            android:text="Account"
+            android:textSize="@dimen/_16sdp"
+            android:textStyle="bold" />
+
+
+        <ImageView
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_marginVertical="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_265sdp"
+            android:padding="@dimen/_2sdp"
+            android:src="@drawable/confimorearrow" />
+
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewPasscode"
+        android:layout_width="@dimen/_300sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_below="@id/cardViewAccount"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="9dp"
+        android:layout_centerInParent="true"
+        app:cardCornerRadius="@dimen/_5sdp"
+        app:cardUseCompatPadding="true">
+
+        <ImageView
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/_7sdp"
+            android:padding="@dimen/_2sdp"
+            android:src="@drawable/password" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_33sdp"
+            android:layout_marginVertical="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_40sdp"
+            android:text="Passcode"
+            android:textSize="@dimen/_16sdp"
+            android:textStyle="bold" />
+
+
+        <ImageView
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_marginVertical="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_265sdp"
+            android:padding="@dimen/_2sdp"
+            android:src="@drawable/confimorearrow" />
+
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="@dimen/_300sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_below="@id/cardViewPasscode"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="9dp"
+        android:layout_centerInParent="true"
+        app:cardCornerRadius="@dimen/_5sdp"
+        app:cardUseCompatPadding="true">
+
+        <ImageView
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/_7sdp"
+            android:padding="@dimen/_2sdp"
+            android:src="@drawable/feedback" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_33sdp"
+            android:layout_marginVertical="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_40sdp"
+            android:text="Feedback"
+            android:textSize="@dimen/_16sdp"
+            android:textStyle="bold" />
+
+
+        <ImageView
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_marginVertical="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_265sdp"
+            android:padding="@dimen/_2sdp"
+            android:src="@drawable/confimorearrow" />
+
+
+    </androidx.cardview.widget.CardView>
+
 
 
 </RelativeLayout>
