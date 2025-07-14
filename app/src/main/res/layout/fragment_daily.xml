@@ -22,12 +22,13 @@
         android:id="@+id/linearNoData"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center">
+        android:gravity="center_horizontal"
+        android:layout_centerInParent="true">
+
 
         <ImageView
-            android:layout_width="@dimen/_200sdp"
-            android:layout_height="@dimen/_200sdp"
+            android:layout_width="@dimen/_180sdp"
+            android:layout_height="@dimen/_180sdp"
             android:src="@drawable/nodata_image" />
 
     </LinearLayout>

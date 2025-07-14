@@ -25,7 +25,7 @@ public class Mainactivity extends AppCompatActivity implements NavController.OnD
 
     private BottomNavigationView navView;
     private NavController navController;
-    private Toolbar toolbar;
+//    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class Mainactivity extends AppCompatActivity implements NavController.OnD
 
         NavigationUI.setupWithNavController(navView, navController);
         navController.addOnDestinationChangedListener(this);
-        toolbar = findViewById(R.id.toolbar);
+//        toolbar = findViewById(R.id.toolbar);
 
     }
 
@@ -59,7 +59,7 @@ public class Mainactivity extends AppCompatActivity implements NavController.OnD
     }
 
     private void updateToolBarIconAndTitle(@NonNull NavDestination destination, @Nullable Bundle arguments) {
-        toolbar = findViewById(R.id.toolbar);
+//        toolbar = findViewById(R.id.toolbar);
 //        setToolbarTitle(destination.getLabel().toString());
 
 //        float elevation = destination.getId() == R.id.navigation_app_notification_settings
@@ -107,8 +107,8 @@ public class Mainactivity extends AppCompatActivity implements NavController.OnD
     }
 
 
-    private void setToolbarTitle(String title) {
-        TextView tvTitle = toolbar.findViewById(R.id.title);
-        tvTitle.setText(title);
-    }
+//    private void setToolbarTitle(String title) {
+//        TextView tvTitle = toolbar.findViewById(R.id.title);
+//        tvTitle.setText(title);
+//    }
 }

@@ -1,7 +1,5 @@
 package com.example.moneymanager.fragments;
 
-import static androidx.navigation.ActivityKt.findNavController;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,24 +13,29 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.moneymanager.R;
 import com.example.moneymanager.activities.AddActivity;
+import com.example.moneymanager.adapter.TransViewPagerAdpter;
+import com.example.moneymanager.adapter.ViewPagerAdpter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayout.OnTabSelectedListener;
-
-import java.util.Calendar;
 
 
 public class TransactionFragment extends Fragment {
-    public TransactionFragment(){
+    public TransactionFragment() {
 
     }
+
     ImageView btnAdd;
+    TabLayout tabLayout;
     TextView daily_trans;
     private BottomNavigationView navView;
     private NavController navController;
+
+    private ViewPager trans_viewPager;
+    private TransViewPagerAdpter transViewPagerAdpter;
 
 
     private final int[] tabDestination = {
@@ -43,6 +46,8 @@ public class TransactionFragment extends Fragment {
             R.id.navigation_app_note,
 
     };
+
+
 
 
     @Override
@@ -57,17 +62,18 @@ public class TransactionFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
 
-
-
         View view = inflater.inflate(R.layout.fragment_transaction, container, false);
-//        TextView daily_trans = view.findViewById(R.id.daily_trans);
-//        TextView calender_trans = view.findViewById(R.id.calender_trans);
-//        TextView monthly_trans = view.findViewById(R.id.monthly_trans);
+        TextView daily_trans = view.findViewById(R.id.daily_trans);
+        TextView calender_trans = view.findViewById(R.id.calender_trans);
+        TextView monthly_trans = view.findViewById(R.id.monthly_trans);
 //        TabLayout tabLayout = view.findViewById(R.id.tabLayout);
         NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_activity_home);
-//        daily_trans.setOnClickListener(v -> navController .navigate(tabDestination[0]));
-//        calender_trans.setOnClickListener(v -> navController .navigate(tabDestination[1]));
-//        monthly_trans.setOnClickListener(v -> navController .navigate(tabDestination[2]));
+        daily_trans.setOnClickListener(v -> navController .navigate(tabDestination[0]));
+        calender_trans.setOnClickListener(v -> navController .navigate(tabDestination[1]));
+        monthly_trans.setOnClickListener(v -> navController .navigate(tabDestination[2]));
+        trans_viewPager = view.findViewById(R.id.trans_viewPager);
+
+
 
         btnAdd = view.findViewById(R.id.btnAdd);
 
@@ -81,17 +87,16 @@ public class TransactionFragment extends Fragment {
             }
         });
 
-
-
+//
 //        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 //
 //            @Override
 //            public void onTabSelected(TabLayout.Tab tab) {
-//                int position = tab.getPosition();
-//                if (position >= 0 && position < tabDestination.length) {
-//                    navController.navigate(tabDestination[position]);
-//
-//                }
+////                int position = tab.getPosition();
+////                if (position >= 0 && position < tabDestination.length) {
+////                    navController.navigate(tabDestination[position]);
+////
+////                }
 //            }
 //
 //
@@ -105,11 +110,16 @@ public class TransactionFragment extends Fragment {
 //        });
 
 
-     return view;
+        return view;
 
 
     }
 
+//    private void addTabs (ViewPager viewPager){
+//
+//        ViewPagerAdpter adpter =new ViewPagerAdpter()
+//
+//    }
 
 
 }
