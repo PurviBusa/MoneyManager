@@ -9,4 +9,6 @@
     <color name="green"> #2AB77E</color>
     <color name="gray"> #B2B2B2</color>
     <color name="darkblue">#155BC5</color>
+    <color name="lightGray">#FBF3F3</color>
+    <color name="darkgray">#757070</color>
 </resources>

@@ -8,13 +8,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.moneymanager.R;
 
-public class SplashScreen extends AppCompatActivity {
+public class SplashScreenActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
-        Intent intent = new Intent(SplashScreen.this, IntroScreen.class);
+        Intent intent = new Intent(SplashScreenActivity.this, IntroScreen.class);
 
         new Handler().postDelayed(new Runnable() {
             @Override

@@ -9,12 +9,15 @@
     tools:context=".activities.AddActivity">
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        tools:layout_editor_absoluteX="0dp"
+        android:layout_above="@+id/custom_key"
+        tools:layout_editor_absoluteY="-127dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
 
             <RelativeLayout
@@ -25,11 +28,11 @@
 
 
                 <ImageView
+                    android:id="@+id/img_backarrow"
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
-                    android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/_2sdp"
-                    android:layout_marginTop="@dimen/_25sdp"
+                    android:layout_marginTop="@dimen/_14sdp"
                     android:minHeight="@dimen/_40sdp"
                     android:padding="@dimen/_2sdp"
                     android:src="@drawable/backarrow" />
@@ -72,25 +75,24 @@
 
 
                 <TextView
-
+                    android:id="@+id/income_button"
                     android:layout_width="@dimen/_90sdp"
-                    android:layout_height="@dimen/_30sdp"
+                    android:layout_height="@dimen/_32sdp"
                     android:layout_centerVertical="true"
                     android:background="@drawable/incomebutton"
                     android:gravity="center"
                     android:text="Income"
-                    android:textColor="@color/darkblue"
+                    android:textColor="@color/blue"
                     android:textSize="@dimen/_15sdp"
                     android:visibility="visible" />
 
                 <TextView
-
+                    android:id="@+id/expense_button"
                     android:layout_width="@dimen/_90sdp"
-                    android:layout_height="@dimen/_30sdp"
+                    android:layout_height="@dimen/_32sdp"
                     android:layout_centerVertical="true"
                     android:layout_marginHorizontal="@dimen/_15sdp"
-                    android:background="@drawable/incomebutton"
-                    android:backgroundTint="#E7DFDF"
+                    android:background="@drawable/total_expence"
                     android:gravity="center"
                     android:text="Expense"
                     android:textColor="@color/gray"
@@ -98,12 +100,11 @@
                     android:visibility="visible" />
 
                 <TextView
-
+                    android:id="@+id/total_button"
                     android:layout_width="@dimen/_90sdp"
-                    android:layout_height="@dimen/_30sdp"
+                    android:layout_height="@dimen/_32sdp"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/incomebutton"
-                    android:backgroundTint="#E7DFDF"
+                    android:background="@drawable/total_expence"
                     android:gravity="center"
                     android:text="Total"
                     android:textColor="@color/gray"
@@ -112,29 +113,13 @@
 
             </LinearLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/llDoll">
-
-                <ImageView
-                    android:layout_width="@dimen/_35sdp"
-                    android:layout_height="@dimen/_35sdp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginVertical="@dimen/_13sdp"
-                    android:layout_marginEnd="@dimen/_15sdp"
-                    android:padding="@dimen/_8sdp"
-                    android:src="@drawable/repeat" />
-
-
-            </RelativeLayout>
-
             <LinearLayout
-                android:id="@+id/lllTodo"
+                android:id="@+id/LinerLL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/llDoll"
-                android:layout_marginTop="@dimen/_23sdp"
+                android:layout_below="@id/llDoll"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
@@ -142,54 +127,73 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:text="Date"
-                    android:textColor="@color/gray"
-                    android:textSize="@dimen/_13sdp" />
+                    android:textColor="#8A8383"
+                    android:textSize="@dimen/_14sdp" />
 
                 <TextView
+                    android:id="@+id/current_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_35sdp"
                     android:text="24/06/2025 (Tue)" />
 
                 <TextView
+                    android:id="@+id/current_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_13sdp"
                     android:text="4.24 pm" />
 
 
+                <LinearLayout
+                    android:id="@+id/lllTodo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:gravity="end"
+                    android:orientation="vertical">
+
+
+                    <ImageView
+                        android:id="@+id/img_repeat"
+                        android:layout_width="@dimen/_17sdp"
+                        android:layout_height="@dimen/_17sdp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:src="@drawable/repeat" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:gravity="end"
+                        android:text="Rep/Inst."
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/_9sdp" />
+
+
+                </LinearLayout>
+
+
             </LinearLayout>
+
 
             <View
                 android:id="@+id/view"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_1sdp"
-                android:layout_below="@id/txtView"
-                android:layout_marginStart="@dimen/_61sdp"
-                android:background="@color/gray" />
-
-            <TextView
-                android:id="@+id/txtView"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_18sdp"
-                android:layout_below="@id/lllTodo"
-                android:gravity="top"
-                android:inputType="textMultiLine"
-                android:padding="10dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/lllTodo"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="@dimen/_7sdp"
-                android:text="Rep/Inst." />
+                android:layout_below="@+id/LinerLL"
+                android:layout_marginStart="@dimen/_67sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@color/lightGray" />
 
             <LinearLayout
-                android:id="@+id/linearAmount"
+                android:id="@+id/linerRR"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/view"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
@@ -197,37 +201,36 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:text="Amount"
-                    android:textColor="@color/gray"
-                    android:textSize="@dimen/_13sdp" />
+                    android:textColor="#8A8383"
+                    android:textSize="@dimen/_14sdp" />
 
                 <TextView
-                    android:id="@+id/txtAmount"
+                    android:id="@+id/txt_amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_3sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
                     android:backgroundTint="@color/gray"
-                    android:inputType="textMultiLine"
+                    android:inputType="numberDecimal"
                     android:padding="10dp" />
 
 
             </LinearLayout>
 
-
             <View
-                android:id="@+id/viewAmount"
+                android:id="@+id/amount_view"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_1sdp"
-                android:layout_below="@id/linearAmount"
-                android:layout_marginStart="@dimen/_60sdp"
-                android:layout_marginTop="@dimen/_1sdp"
-                android:background="@color/gray" />
+                android:layout_below="@+id/linerRR"
+                android:layout_marginStart="@dimen/_67sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@color/lightGray" />
 
             <LinearLayout
-                android:id="@+id/linearCategory"
+                android:id="@+id/linerPP"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/linearAmount"
+                android:layout_below="@id/amount_view"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
@@ -235,67 +238,66 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:text="Category"
-                    android:textColor="@color/gray"
-                    android:textSize="@dimen/_13sdp" />
+                    android:textColor="#8A8383"
+                    android:textSize="@dimen/_14sdp" />
 
                 <TextView
-                    android:id="@+id/txtCategory"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_35sdp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/gray"
                     android:inputType="textMultiLine"
                     android:padding="10dp" />
-
-
             </LinearLayout>
 
             <View
-                android:id="@+id/viewCatogary"
+                android:id="@+id/category_view"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_1sdp"
-                android:layout_below="@id/linearCategory"
-                android:layout_marginStart="@dimen/_60sdp"
-                android:layout_marginTop="@dimen/_1sdp"
-                android:background="@color/gray" />
+                android:layout_below="@+id/linerPP"
+                android:layout_marginStart="@dimen/_67sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@color/lightGray" />
 
             <LinearLayout
-                android:id="@+id/linearAccount"
+                android:id="@+id/linerBB"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_below="@id/viewCatogary"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/category_view"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_4sdp"
                     android:text="Account"
-                    android:textColor="@color/gray"
-                    android:textSize="@dimen/_13sdp" />
+                    android:textColor="#8A8383"
+                    android:textSize="@dimen/_14sdp" />
 
                 <TextView
-                    android:id="@+id/txtAcnt"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_35sdp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/gray"
                     android:inputType="textMultiLine"
                     android:padding="10dp" />
-
-
             </LinearLayout>
 
             <View
-                android:id="@+id/viewAccount"
+                android:id="@+id/account_view"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_1sdp"
-                android:layout_below="@id/linearAccount"
-                android:layout_marginStart="@dimen/_60sdp"
-                android:background="@color/gray" />
+                android:layout_below="@+id/linerBB"
+                android:layout_marginStart="@dimen/_67sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="#FBF3F3" />
 
             <LinearLayout
-                android:id="@+id/linearNote"
+                android:id="@+id/linerZZ"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_45sdp"
-                android:layout_below="@id/viewAccount"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/account_view"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
@@ -303,45 +305,36 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:text="Note"
-                    android:textColor="@color/gray"
-                    android:textSize="@dimen/_13sdp" />
+                    android:textColor="#8A8383"
+                    android:textSize="@dimen/_14sdp" />
 
                 <EditText
-                    android:id="@+id/txtNote"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_45sdp"
-                    android:layout_marginStart="@dimen/_20sdp"
-                    android:backgroundTint="@color/gray"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_24sdp"
+                    android:background="@android:color/transparent"
                     android:inputType="textMultiLine"
-                    android:padding="10dp" />
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:id="@+id/linearLL"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/linearNote"
-                android:orientation="horizontal">
-
-                <TextView
-
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_10sdp"
-                    android:inputType="textMultiLine"
-                    android:padding="10dp" />
+                    android:padding="11dp" />
 
 
             </LinearLayout>
 
             <View
+                android:id="@+id/note_view"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_below="@+id/linerZZ"
+                android:layout_marginStart="@dimen/_67sdp"
+                android:background="@color/lightGray" />
+
+
+            <View
                 android:id="@+id/viewLL"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_1sdp"
-                android:layout_below="@id/linearLL"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:background="@color/gray" />
+                android:layout_below="@id/note_view"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:background="@color/lightGray" />
 
             <LinearLayout
                 android:id="@+id/linearTT"
@@ -365,7 +358,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_1sdp"
                 android:layout_below="@id/linearTT"
-                android:background="@color/gray" />
+                android:background="@color/lightGray" />
 
             <RelativeLayout
                 android:id="@+id/relativePP"
@@ -374,22 +367,23 @@
                 android:layout_below="@id/viewFF"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_12sdp"
-                    android:text="Description"
+                    android:background="@android:color/transparent"
+                    android:hint="Discription"
                     android:textColor="@color/gray"
                     android:textSize="@dimen/_13sdp" />
 
                 <ImageView
-                    android:layout_width="@dimen/_25sdp"
-                    android:layout_height="@dimen/_25sdp"
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="@dimen/_35sdp"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginEnd="@dimen/_28sdp"
-                    android:padding="@dimen/_2sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:layout_marginEnd="38dp"
+                    android:padding="@dimen/_5sdp"
                     android:src="@drawable/camra" />
 
 
@@ -402,7 +396,7 @@
                 android:layout_below="@id/relativePP"
                 android:layout_marginStart="@dimen/_8sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:background="@color/gray" />
+                android:background="@color/lightGray" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -436,5 +430,9 @@
         </RelativeLayout>
     </ScrollView>
 
-
+    <com.example.moneymanager.activities.CustomKeyboard
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/custom_key"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>

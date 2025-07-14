@@ -1,6 +1,5 @@
 package com.example.moneymanager.activities;
 
-import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -12,8 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.moneymanager.R;
+import com.example.moneymanager.adapter.ViewPagerAdpter;
 import com.example.moneymanager.models.ScreenItem;
-import com.example.moneymanager.customs.ViewPagerAdpter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +36,7 @@ public class IntroScreen extends AppCompatActivity {
 
 
         if (restorePrefData()) {
-            Intent intent = new Intent(getApplicationContext(), AddActivity.class);
+            Intent intent = new Intent(getApplicationContext(), Mainactivity.class);
             startActivity(intent);
             finish();
         }

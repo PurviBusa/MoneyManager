@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -11,134 +11,54 @@
 
 
 
-
-    <LinearLayout
-        android:id="@+id/bottom_nav"
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/custom_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_activity_home"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:navGraph="@navigation/app_navigation" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        style="@style/BottomNavigationViewStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/white"
-        android:padding="@dimen/_15sdp">
+        android:background="@color/bg"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/home_bottom_menu">
 
-        <RelativeLayout
-
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center">
-
-
-            <ImageView
-                android:id="@+id/imgTrans"
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:padding="@dimen/_3sdp"
-                android:src="@drawable/tans_unselected" />
-
-            <TextView
-
-                android:id="@+id/txtTrans"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/imgTrans"
-                android:text="Trans."
-                android:textColor="@color/black"
-                android:textSize="@dimen/_12sdp" />
-
-        </RelativeLayout>
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 
-        <RelativeLayout
-
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center">
-
-
-            <ImageView
-                android:id="@+id/imgStats"
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:padding="@dimen/_3sdp"
-                android:src="@drawable/stats_unselected" />
-
-            <TextView
-
-                android:id="@+id/txtStats"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/imgStats"
-                android:text="Stats"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_12sdp" />
-
-        </RelativeLayout>
-
-
-        <RelativeLayout
-
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center">
-
-
-            <ImageView
-                android:id="@+id/imgAccounts"
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:padding="@dimen/_3sdp"
-                android:src="@drawable/account_unselected" />
-
-            <TextView
-
-                android:id="@+id/txtAccounts"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/imgAccounts"
-                android:text="Accounts"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_12sdp" />
-
-
-        </RelativeLayout>
-
-        <RelativeLayout
-
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center">
-
-
-            <ImageView
-                android:id="@+id/imgMore"
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:padding="@dimen/_3sdp"
-                android:src="@drawable/more_unselected" />
-
-            <TextView
-
-                android:id="@+id/txtMore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/imgMore"
-                android:text="More"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_12sdp" />
-
-
-        </RelativeLayout>
-
-
-
-
-    </LinearLayout>
-
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 

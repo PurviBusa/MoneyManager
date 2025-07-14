@@ -7,40 +7,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:paddingHorizontal="12dp"
     tools:context=".fragments.MoreFragment">
 
-    <LinearLayout
-        android:id="@+id/linearSetting"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/txtSetting"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/_15sdp"
-            android:text="Settings"
-            android:textSize="@dimen/_18sdp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <View
-        android:id="@+id/viewSetting"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_1sdp"
-        android:layout_below="@id/linearSetting"
-        android:background="@color/gray" />
 
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewconfi"
-        android:layout_width="@dimen/_300sdp"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/_50sdp"
-        android:layout_below="@id/viewSetting"
-        android:layout_centerInParent="true"
         android:layout_marginTop="@dimen/_20sdp"
         app:cardCornerRadius="@dimen/_5sdp"
+        app:cardElevation="3dp"
         app:cardUseCompatPadding="true">
 
         <ImageView
@@ -77,12 +55,12 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewAccount"
-        android:layout_width="@dimen/_300sdp"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/_50sdp"
         android:layout_below="@id/cardViewconfi"
         android:layout_centerVertical="true"
-        android:layout_marginTop="9dp"
-        android:layout_centerInParent="true"
+        android:layout_marginTop="8dp"
+        app:cardElevation="3dp"
         app:cardCornerRadius="@dimen/_5sdp"
         app:cardUseCompatPadding="true">
 
@@ -117,13 +95,13 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewPasscode"
-        android:layout_width="@dimen/_300sdp"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/_50sdp"
         android:layout_below="@id/cardViewAccount"
         android:layout_centerVertical="true"
-        android:layout_marginTop="9dp"
-        android:layout_centerInParent="true"
+        android:layout_marginTop="8dp"
         app:cardCornerRadius="@dimen/_5sdp"
+        app:cardElevation="3dp"
         app:cardUseCompatPadding="true">
 
         <ImageView
@@ -156,12 +134,11 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="@dimen/_300sdp"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/_50sdp"
         android:layout_below="@id/cardViewPasscode"
         android:layout_centerVertical="true"
-        android:layout_marginTop="9dp"
-        android:layout_centerInParent="true"
+        android:layout_marginTop="8dp"
         app:cardCornerRadius="@dimen/_5sdp"
         app:cardUseCompatPadding="true">
 

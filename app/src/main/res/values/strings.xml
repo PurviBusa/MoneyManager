@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Money Manager</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu_transaction">Trans.</string>
+    <string name="menu_stats">Stats</string>
+    <string name="menu_accounts">Accounts</string>
+    <string name="menu_more">More</string>
+    <string name="text_settings">Settings</string>
 </resources>
