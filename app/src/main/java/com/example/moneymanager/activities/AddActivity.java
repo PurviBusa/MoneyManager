@@ -62,6 +62,14 @@ public class AddActivity extends AppCompatActivity {
         current_date = findViewById(R.id.current_date);
         current_time = findViewById(R.id.current_time);
         txt_amount = findViewById(R.id.txt_amount);
+        img_backarrow = findViewById(R.id.img_backarrow);
+
+        img_backarrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
 
         txt_amount.setShowSoftInputOnFocus(false);

@@ -107,8 +107,5 @@ public class Mainactivity extends AppCompatActivity implements NavController.OnD
     }
 
 
-//    private void setToolbarTitle(String title) {
-//        TextView tvTitle = toolbar.findViewById(R.id.title);
-//        tvTitle.setText(title);
-//    }
+//
 }

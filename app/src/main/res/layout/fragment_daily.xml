@@ -15,8 +15,7 @@
         android:clipToPadding="false"
         android:paddingHorizontal="15dp"
         android:paddingTop="10dp"
-        android:paddingBottom="70dp"
-        android:visibility="visible" />
+        android:paddingBottom="70dp" />
 
     <LinearLayout
         android:id="@+id/linearNoData"
