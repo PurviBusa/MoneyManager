@@ -7,6 +7,7 @@ import android.content.Context;
 import android.inputmethodservice.Keyboard;
 import android.os.Build;
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
@@ -26,6 +27,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.moneymanager.R;
+import com.example.moneymanager.customs.keyboardListner;
 
 import java.text.ParseException;
 import java.text.ParsePosition;
@@ -34,8 +36,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class AddActivity extends AppCompatActivity {
+public class AddActivity extends AppCompatActivity implements keyboardListner {
 
+    private static final String TAG = "AddActivity";
     TextView income_button, expense_button, total_button, current_date, current_time, txt_amount;
     ImageView img_backarrow;
     Calendar calendar;
@@ -54,7 +57,7 @@ public class AddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
         customKeyboard = findViewById(R.id.custom_key);
-        Log.d("", "customKeyboard::::::::::::::" + customKeyboard);
+//        Log.d("", "customKeyboard::::::::::::::" + customKeyboard);
         income_button = findViewById(R.id.income_button);
         expense_button = findViewById(R.id.expense_button);
         total_button = findViewById(R.id.total_button);
@@ -74,10 +77,13 @@ public class AddActivity extends AppCompatActivity {
 
         txt_amount.setShowSoftInputOnFocus(false);
         InputConnection inputConnection = txt_amount.onCreateInputConnection(new EditorInfo());
-        customKeyboard.setInputConnection(inputConnection);
+        customKeyboard.setListener(this);
         txt_amount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
+
+                Log.d(TAG, "onFocusChange: "+hasFocus);
+
                 if (hasFocus) {
 
 //                    customKeyboard.setVisibility(View.VISIBLE);
@@ -229,6 +235,7 @@ public class AddActivity extends AppCompatActivity {
     public void hideCustomKeyboard() {
 
         customKeyboard.setVisibility(View.GONE);
+        Log.d(TAG, "hideCustomKeyboard: ");
     }
 
     public void hideSystemKeyboard() {
@@ -240,4 +247,83 @@ public class AddActivity extends AppCompatActivity {
     }
 
 
-}
+    @Override
+    public void setValue(String value) {
+//        Log.d(TAG, "setValue: " + value);
+//        String currentText = txt_amount.getText().toString();
+//
+//        if (!currentText.startsWith("£")) {
+//            currentText = "£  " + currentText;
+//            txt_amount.setText(currentText);
+//        }
+//
+//        switch (value) {
+//            case "DEL":
+//
+//                if (!currentText.isEmpty()) {
+//                    currentText = currentText.substring(0, currentText.length() - 1);
+//                    txt_amount.setText(currentText);
+//                }
+//                break;
+//
+//            case "-":
+//
+//                if (!currentText.contains("-")) {
+//                    txt_amount.setText("£  -" + currentText.substring(2));
+////                    txt_amount.setText(value + txt_amount.getText().toString());
+//
+//                }
+//                break;
+//
+//
+//            default:
+//
+//                txt_amount.append(value);
+//                break;
+//        }
+
+        Log.d(TAG, "setValue: " + value);
+        String currentText = txt_amount.getText().toString();
+
+
+        if (!currentText.startsWith("$ ")) {
+            currentText = "$ ";
+            txt_amount.setText(currentText);
+        }
+
+        switch (value) {
+            case "DEL":
+                if (currentText.length() > 2) {
+                    String updated = currentText.substring(0, currentText.length() - 1);
+                    txt_amount.setText(updated);
+                }
+
+                break;
+
+            case "-":
+                if (!currentText.contains("-")) {
+                    String numberPart = currentText.substring(2);
+                    txt_amount.setText("$ -" + numberPart);
+                }
+                break;
+
+            default:
+
+                String insertText = currentText;
+
+                if (currentText.contains("-")) {
+                    insertText = "$ -" + currentText.substring(3) + value;
+                } else {
+                    insertText = "$ " + currentText.substring(2) + value;
+                }
+
+                txt_amount.setText(insertText);
+                break;
+        }
+
+
+        txt_amount.setText(txt_amount.getText().toString());
+    }
+
+        }
+
