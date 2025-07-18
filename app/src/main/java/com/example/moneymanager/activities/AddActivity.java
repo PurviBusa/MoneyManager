@@ -15,7 +15,9 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -39,11 +41,15 @@ import java.util.Locale;
 public class AddActivity extends AppCompatActivity implements keyboardListner {
 
     private static final String TAG = "AddActivity";
-    TextView income_button, expense_button, total_button, current_date, current_time, txt_amount;
+    TextView income_button, expense_button, total_button, current_date, current_time, txt_amount,
+            income_category, income_account;
+    EditText income_note;
     ImageView img_backarrow;
     Calendar calendar;
+    LinearLayout LinerLL;
     SimpleDateFormat simpleDateFormat;
     SimpleDateFormat simpleDateFormat2;
+    View date_view, amount_view, category_view, account_view, note_view;
     DatabaseHelper databaseHelper;
 
     private static CustomKeyboard customKeyboard;
@@ -56,6 +62,8 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
+
+//      setupFocusListeners();
         customKeyboard = findViewById(R.id.custom_key);
 //        Log.d("", "customKeyboard::::::::::::::" + customKeyboard);
         income_button = findViewById(R.id.income_button);
@@ -66,37 +74,60 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
         current_time = findViewById(R.id.current_time);
         txt_amount = findViewById(R.id.txt_amount);
         img_backarrow = findViewById(R.id.img_backarrow);
+        date_view = findViewById(R.id.date_view);
+        current_date = findViewById(R.id.current_date);
+        income_category = findViewById(R.id.income_category);
+        income_account = findViewById(R.id.income_account);
+        income_note = findViewById(R.id.income_note);
+        amount_view = findViewById(R.id.account_view);
+        category_view = findViewById(R.id.category_view);
+        account_view = findViewById(R.id.account_view);
+        note_view = findViewById(R.id.note_view);
+
+
+        DatabaseHelper databaseHelper = DatabaseHelper.getDB(this);
+
+
+
 
         img_backarrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+
             }
         });
 
 
         txt_amount.setShowSoftInputOnFocus(false);
-        InputConnection inputConnection = txt_amount.onCreateInputConnection(new EditorInfo());
+
+
+
         customKeyboard.setListener(this);
-        txt_amount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+        customKeyboard.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
 
-                Log.d(TAG, "onFocusChange: "+hasFocus);
+
+//                Log.d(TAG, "onFocusChange: " + hasFocus);
 
                 if (hasFocus) {
-
-//                    customKeyboard.setVisibility(View.VISIBLE);
-//
                     showCustomKeyboard();
 
                 } else
                     hideCustomKeyboard();
-//                    customKeyboard.setVisibility(View.GONE);
             }
         });
         txt_amount.setRawInputType(InputType.TYPE_CLASS_TEXT);
+        income_category.setRawInputType(InputType.TYPE_CLASS_TEXT);
+        income_account.setRawInputType(InputType.TYPE_CLASS_TEXT);
+
+
         txt_amount.setTextIsSelectable(true);
+        income_category.setTextIsSelectable(true);
+        income_account.setTextIsSelectable(true);
+
 
 
         if (calendar == null)
@@ -136,6 +167,8 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
                     onBackPressed();
                 }
             });
+
+
 
 
             income_button.setOnClickListener(new View.OnClickListener() {
@@ -241,7 +274,7 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
     public void hideSystemKeyboard() {
         InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         if (imm != null) {
-            imm.hideSoftInputFromWindow(txt_amount.getWindowToken(), 0);
+            imm.hideSoftInputFromWindow(customKeyboard.getWindowToken(), 0);
         }
 
     }
@@ -249,75 +282,36 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
 
     @Override
     public void setValue(String value) {
-//        Log.d(TAG, "setValue: " + value);
-//        String currentText = txt_amount.getText().toString();
-//
-//        if (!currentText.startsWith("£")) {
-//            currentText = "£  " + currentText;
-//            txt_amount.setText(currentText);
-//        }
-//
-//        switch (value) {
-//            case "DEL":
-//
-//                if (!currentText.isEmpty()) {
-//                    currentText = currentText.substring(0, currentText.length() - 1);
-//                    txt_amount.setText(currentText);
-//                }
-//                break;
-//
-//            case "-":
-//
-//                if (!currentText.contains("-")) {
-//                    txt_amount.setText("£  -" + currentText.substring(2));
-////                    txt_amount.setText(value + txt_amount.getText().toString());
-//
-//                }
-//                break;
-//
-//
-//            default:
-//
-//                txt_amount.append(value);
-//                break;
-//        }
-
         Log.d(TAG, "setValue: " + value);
         String currentText = txt_amount.getText().toString();
 
-
-        if (!currentText.startsWith("$ ")) {
-            currentText = "$ ";
+        if (!currentText.startsWith("£")) {
+            currentText = "£  " + currentText;
             txt_amount.setText(currentText);
         }
 
         switch (value) {
             case "DEL":
-                if (currentText.length() > 2) {
-                    String updated = currentText.substring(0, currentText.length() - 1);
-                    txt_amount.setText(updated);
-                }
 
+                if (!currentText.isEmpty()) {
+                    currentText = currentText.substring(0, currentText.length() - 1);
+                    txt_amount.setText(currentText);
+                }
                 break;
 
             case "-":
+
                 if (!currentText.contains("-")) {
-                    String numberPart = currentText.substring(2);
-                    txt_amount.setText("$ -" + numberPart);
+                    txt_amount.setText("£  -" + currentText.substring(2));
+//                    txt_amount.setText(value + txt_amount.getText().toString());
+
                 }
                 break;
 
+
             default:
 
-                String insertText = currentText;
-
-                if (currentText.contains("-")) {
-                    insertText = "$ -" + currentText.substring(3) + value;
-                } else {
-                    insertText = "$ " + currentText.substring(2) + value;
-                }
-
-                txt_amount.setText(insertText);
+                txt_amount.append(value);
                 break;
         }
 
@@ -325,5 +319,6 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
         txt_amount.setText(txt_amount.getText().toString());
     }
 
-        }
+
+}
 
