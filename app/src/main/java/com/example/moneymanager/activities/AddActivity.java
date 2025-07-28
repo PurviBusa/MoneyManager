@@ -1,39 +1,35 @@
 package com.example.moneymanager.activities;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
-import android.inputmethodservice.Keyboard;
+import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
-import android.renderscript.Sampler;
 import android.text.InputType;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.moneymanager.Class.CustomKeyboard;
+import com.example.moneymanager.Class.DatabaseHelper;
 import com.example.moneymanager.R;
+import com.example.moneymanager.adapter.CategoeyRecyclerAdapter;
 import com.example.moneymanager.customs.keyboardListner;
 
-import java.text.ParseException;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -51,7 +47,11 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
     SimpleDateFormat simpleDateFormat2;
     View date_view, amount_view, category_view, account_view, note_view;
     DatabaseHelper databaseHelper;
+    GridLayout gride_custom;
 
+    RecyclerView category_recycler;
+
+    CategoeyRecyclerAdapter adpter;
     private static CustomKeyboard customKeyboard;
 
     String inputDate = "";
@@ -62,6 +62,14 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
+
+        ArrayList<String> categoryList = new ArrayList<>();
+        categoryList.add("Salary");
+        categoryList.add("Petty Cash");
+        categoryList.add("Bonus");
+        categoryList.add("Award");
+        categoryList.add("Allownce");
+
 
 //      setupFocusListeners();
         customKeyboard = findViewById(R.id.custom_key);
@@ -83,11 +91,11 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
         category_view = findViewById(R.id.category_view);
         account_view = findViewById(R.id.account_view);
         note_view = findViewById(R.id.note_view);
+        gride_custom = findViewById(R.id.gride_custom);
+        category_recycler = findViewById(R.id.category_recycler);
 
 
-        DatabaseHelper databaseHelper = DatabaseHelper.getDB(this);
-
-
+//        DatabaseHelper databaseHelper = DatabaseHelper.getDB(this);
 
 
         img_backarrow.setOnClickListener(new View.OnClickListener() {
@@ -100,12 +108,55 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
 
 
         txt_amount.setShowSoftInputOnFocus(false);
+        income_category.setShowSoftInputOnFocus(false);
+        income_account.setShowSoftInputOnFocus(false);
 
+
+        income_note.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    hideCustomKeyboard();
+                }
+            }
+        });
 
 
         customKeyboard.setListener(this);
 
-        customKeyboard.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        txt_amount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                if (hasFocus) {
+                    category_recycler.setVisibility(View.GONE);
+                    showCustomKeyboard();
+
+                } else
+                    hideCustomKeyboard();
+                    gride_custom.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        income_category.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+
+                Log.d(TAG, "onFocusChange: " + hasFocus);
+
+                if (hasFocus) {
+                    gride_custom.setVisibility(View.GONE);
+                    showCustomKeyboard();
+
+                } else
+                    hideCustomKeyboard();
+                    category_recycler.setVisibility(View.VISIBLE);
+            }
+        });
+
+        income_account.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
 
@@ -122,12 +173,18 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
         txt_amount.setRawInputType(InputType.TYPE_CLASS_TEXT);
         income_category.setRawInputType(InputType.TYPE_CLASS_TEXT);
         income_account.setRawInputType(InputType.TYPE_CLASS_TEXT);
+        txt_amount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                customKeyboard.setVisibility(View.VISIBLE);
+                category_recycler.setVisibility(View.GONE);
+            }
+        });
 
 
         txt_amount.setTextIsSelectable(true);
         income_category.setTextIsSelectable(true);
         income_account.setTextIsSelectable(true);
-
 
 
         if (calendar == null)
@@ -167,8 +224,6 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
                     onBackPressed();
                 }
             });
-
-
 
 
             income_button.setOnClickListener(new View.OnClickListener() {
@@ -281,44 +336,81 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
 
 
     @Override
+
+
     public void setValue(String value) {
+
+
         Log.d(TAG, "setValue: " + value);
         String currentText = txt_amount.getText().toString();
 
-        if (!currentText.startsWith("£")) {
-            currentText = "£  " + currentText;
-            txt_amount.setText(currentText);
-        }
+
+        String rawText = currentText.replace("£", "").replace(" ", "");
+        boolean isNegative = rawText.startsWith("-");
+        String numberPart = rawText.replace("-", "");
 
         switch (value) {
             case "DEL":
+                if (!numberPart.isEmpty()) {
+                    numberPart = numberPart.substring(0, numberPart.length() - 1);
+                } else {
 
-                if (!currentText.isEmpty()) {
-                    currentText = currentText.substring(0, currentText.length() - 1);
-                    txt_amount.setText(currentText);
+                    isNegative = false;
                 }
                 break;
 
             case "-":
-
-                if (!currentText.contains("-")) {
-                    txt_amount.setText("£  -" + currentText.substring(2));
-//                    txt_amount.setText(value + txt_amount.getText().toString());
-
-                }
+                isNegative = !isNegative;
                 break;
 
-
             default:
-
-                txt_amount.append(value);
+                numberPart += value;
                 break;
         }
 
 
-        txt_amount.setText(txt_amount.getText().toString());
+        if (numberPart.isEmpty()) {
+            txt_amount.setText("");
+        } else {
+            StringBuilder finalText = new StringBuilder("£  ");
+            if (isNegative) finalText.append("-");
+            finalText.append(numberPart);
+            txt_amount.setText(finalText.toString());
+
+
+        }
+
+
+//        txt_amount.setText(txt_amount.getText().length());
     }
 
+    public void onBackPressed() {
+        if (customKeyboard.getVisibility() == View.VISIBLE) {
 
+            customKeyboard.setVisibility(View.GONE);
+            getWindow().getDecorView().clearFocus();
+
+        } else {
+            super.onBackPressed();
+        }
+
+
+    }
+
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (v != null && customKeyboard.getVisibility() == View.VISIBLE) {
+                Rect outRect = new Rect();
+                customKeyboard.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int) ev.getRawX(), (int) ev.getRawY())) {
+                    customKeyboard.setVisibility(View.GONE);
+                }
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+
+
+    }
 }
 

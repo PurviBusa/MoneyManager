@@ -432,12 +432,16 @@
 
 
             </LinearLayout>
-        </RelativeLayout>
+                    </RelativeLayout>
+
+
     </ScrollView>
 
-    <com.example.moneymanager.activities.CustomKeyboard
+    <com.example.moneymanager.Class.CustomKeyboard
+        android:id="@+id/custom_key"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/custom_key"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp" />
+
 </RelativeLayout>

@@ -37,7 +37,7 @@
             android:name=".activities.Mainactivity"
             android:exported="true" />
         <activity
-            android:name=".activities.IntroScreen"
+            android:name=".Class.IntroScreen"
             android:exported="true"
             android:theme="@style/IntroStyle" />
     </application>

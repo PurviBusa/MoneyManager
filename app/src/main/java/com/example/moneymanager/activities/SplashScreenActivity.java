@@ -6,6 +6,7 @@ import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.moneymanager.Class.IntroScreen;
 import com.example.moneymanager.R;
 
 public class SplashScreenActivity extends AppCompatActivity {

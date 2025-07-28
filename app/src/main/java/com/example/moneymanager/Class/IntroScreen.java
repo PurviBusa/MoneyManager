@@ -1,4 +1,4 @@
-package com.example.moneymanager.activities;
+package com.example.moneymanager.Class;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.moneymanager.R;
+import com.example.moneymanager.activities.Mainactivity;
 import com.example.moneymanager.adapter.ViewPagerAdpter;
 import com.example.moneymanager.models.ScreenItem;
 
