@@ -25,7 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.moneymanager.Class.CustomKeyboard;
 import com.example.moneymanager.Class.DatabaseHelper;
 import com.example.moneymanager.R;
-import com.example.moneymanager.adapter.CategoeyRecyclerAdapter;
+import com.example.moneymanager.adapter.CategoryRecyclerAdapter;
 import com.example.moneymanager.customs.keyboardListner;
 
 import java.text.SimpleDateFormat;
@@ -51,7 +51,7 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
 
     RecyclerView category_recycler;
 
-    CategoeyRecyclerAdapter adpter;
+    CategoryRecyclerAdapter adpter;
     private static CustomKeyboard customKeyboard;
 
     String inputDate = "";
