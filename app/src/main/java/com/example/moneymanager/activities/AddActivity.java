@@ -130,11 +130,12 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
 
                 if (hasFocus) {
                     category_recycler.setVisibility(View.GONE);
+                    gride_custom.setVisibility(View.VISIBLE);
                     showCustomKeyboard();
 
                 } else
                     hideCustomKeyboard();
-                    gride_custom.setVisibility(View.VISIBLE);
+
 
             }
         });
@@ -144,15 +145,16 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
             public void onFocusChange(View v, boolean hasFocus) {
 
 
-                Log.d(TAG, "onFocusChange: " + hasFocus);
+//                Log.d(TAG, "onFocusChange: " + hasFocus);
 
                 if (hasFocus) {
                     gride_custom.setVisibility(View.GONE);
+                    category_recycler.setVisibility(View.VISIBLE);
                     showCustomKeyboard();
 
                 } else
                     hideCustomKeyboard();
-                    category_recycler.setVisibility(View.VISIBLE);
+
             }
         });
 
@@ -337,25 +339,31 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
 
     @Override
 
-
     public void setValue(String value) {
+        Log.d("TAG", "setValue: " + value);
+
+        // Remove formatting characters
+        String currentText = txt_amount.getText().toString().replace("£", "").trim();
 
 
-        Log.d(TAG, "setValue: " + value);
-        String currentText = txt_amount.getText().toString();
+        boolean isNegative = false;
+        String numberPart;
 
-
-        String rawText = currentText.replace("£", "").replace(" ", "");
-        boolean isNegative = rawText.startsWith("-");
-        String numberPart = rawText.replace("-", "");
+        // Check for negative sign
+        if (currentText.startsWith("-")) {
+            isNegative = true;
+            numberPart = currentText.substring(1);
+        } else {
+            numberPart = currentText;
+        }
 
         switch (value) {
             case "DEL":
                 if (!numberPart.isEmpty()) {
                     numberPart = numberPart.substring(0, numberPart.length() - 1);
-                } else {
-
-                    isNegative = false;
+                }
+                if (numberPart.isEmpty()) {
+                    isNegative = false; // clear minus when number is empty
                 }
                 break;
 
@@ -368,21 +376,59 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
                 break;
         }
 
-
+        // Set final formatted text
         if (numberPart.isEmpty()) {
-            txt_amount.setText("");
+            txt_amount.setText(""); // show nothing
         } else {
-            StringBuilder finalText = new StringBuilder("£  ");
-            if (isNegative) finalText.append("-");
-            finalText.append(numberPart);
-            txt_amount.setText(finalText.toString());
-
-
+            String finalText = "£  " + (isNegative ? "-" : "") + numberPart;
+            txt_amount.setText(finalText); // 💥 OUTPUT WILL BE LIKE: £  -123
         }
-
+    }
+//    public void setValue(String value) {
+//
+//
+//        Log.d(TAG, "setValue: " + value);
+//        String currentText = txt_amount.getText().toString();
+//
+//
+//        String rawText = currentText.replace("£", "").replace(" ", "");
+//        boolean isNegative = rawText.startsWith("-");
+//        String numberPart = rawText.replace("-", "");
+//
+//        switch (value) {
+//            case "DEL":
+//                if (!numberPart.isEmpty()) {
+//                    numberPart = numberPart.substring(0, numberPart.length() - 1);
+//                } else {
+//
+//                    isNegative = false;
+//                }
+//                break;
+//
+//            case "-":
+//                isNegative = !isNegative;
+//                break;
+//
+//            default:
+//                numberPart += value;
+//                break;
+//        }
+//
+//
+//        if (numberPart.isEmpty()) {
+//            txt_amount.setText("");
+//        } else {
+//            StringBuilder finalText = new StringBuilder("£  ");
+//            if (isNegative) finalText.append("-");
+//            finalText.append(numberPart);
+//            txt_amount.setText(finalText.toString());
+//
+//
+//        }
+//
 
 //        txt_amount.setText(txt_amount.getText().length());
-    }
+//    }
 
     public void onBackPressed() {
         if (customKeyboard.getVisibility() == View.VISIBLE) {
