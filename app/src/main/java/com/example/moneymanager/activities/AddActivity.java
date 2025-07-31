@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputType;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -49,7 +50,7 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
     DatabaseHelper databaseHelper;
     GridLayout gride_custom;
 
-    RecyclerView category_recycler;
+    LinearLayout category_recycler;
 
     CategoryRecyclerAdapter adpter;
     private static CustomKeyboard customKeyboard;
@@ -340,16 +341,18 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
     @Override
 
     public void setValue(String value) {
+
         Log.d("TAG", "setValue: " + value);
 
-        // Remove formatting characters
+
+
         String currentText = txt_amount.getText().toString().replace("£", "").trim();
 
 
         boolean isNegative = false;
         String numberPart;
 
-        // Check for negative sign
+
         if (currentText.startsWith("-")) {
             isNegative = true;
             numberPart = currentText.substring(1);
@@ -363,7 +366,7 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
                     numberPart = numberPart.substring(0, numberPart.length() - 1);
                 }
                 if (numberPart.isEmpty()) {
-                    isNegative = false; // clear minus when number is empty
+                    isNegative = false;
                 }
                 break;
 
@@ -376,14 +379,15 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
                 break;
         }
 
-        // Set final formatted text
+
         if (numberPart.isEmpty()) {
-            txt_amount.setText(""); // show nothing
+            txt_amount.setText("");
         } else {
             String finalText = "£  " + (isNegative ? "-" : "") + numberPart;
-            txt_amount.setText(finalText); // 💥 OUTPUT WILL BE LIKE: £  -123
+            txt_amount.setText(finalText);
+            }
         }
-    }
+
 //    public void setValue(String value) {
 //
 //

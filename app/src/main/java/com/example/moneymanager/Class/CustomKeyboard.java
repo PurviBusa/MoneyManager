@@ -18,7 +18,7 @@ import com.example.moneymanager.customs.keyboardListner;
 public class CustomKeyboard extends RelativeLayout implements View.OnClickListener {
     InputConnection inputConnection;
 
-    RecyclerView category_recycler;
+    LinearLayout category_recycler;
     TextView txt_amount;
     private TextView txt_1, txt_2, txt_3, txt_4, txt_5, txt_6, txt_7, txt_8, txt_9, txt_0, txt_dot, txt_minus, txt_done;
     private ImageView img_backSpace, img_calculator, img_currency, img_close;
