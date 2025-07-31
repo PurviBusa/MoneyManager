@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Base.Theme.MoneyManager" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorAccent">@color/blue</item>
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorPrimaryDark">@color/blue</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:navigationBarColor">@color/bg</item>
+        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
+        <item name="android:windowLightNavigationBar" tools:ignore="NewApi">true</item>
+    </style>
+
+    <style name="IntroStyle" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@color/bg</item>
+        <item name="android:navigationBarColor">@color/bg</item>
+        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
+        <item name="android:windowLightNavigationBar" tools:ignore="NewApi">true</item>
+    </style>
+
+
+    <style name="Theme.MoneyManager" parent="Base.Theme.MoneyManager" />
+
+    <style name="BottomNavigationViewStyle" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemTextAppearanceActive">@style/TextAppearanceActive</item>
+        <item name="itemTextAppearanceInactive">@style/TextAppearanceInactive</item>
+        <item name="android:textColor">@drawable/bottom_menu_text</item>
+        <item name="iconTint">@null</item>
+    </style>
+
+    <style name="TextAppearanceActive" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#00AFD8</item>
+    </style>
+
+    <style name="TextAppearanceInactive" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#B2B2B2</item>
+    </style>
+
+    <style name="TransactionTabLayoutTextStyle">
+        <item name="android:textSize">15sp</item>
+        <item name="tabIndicatorHeight">3dp</item>
+        <item name="tabSelectedTextColor">@color/black</item>
+        <item name="tabIndicatorColor">@color/blue</item>
+        <item name="android:gravity">center</item>
+        <item name="tabPaddingBottom">@dimen/_8sdp</item>
+        <item name="tabPaddingTop">@dimen/_8sdp</item>
+        <item name="tabTextColor">@color/gray</item>
+        <item name="tabMode">fixed</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorBackgroundFloating">@color/white</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="android:textAlignment">center</item>
+        <item name="tabTextAppearance">@style/TabLayoutTextStyle</item>
+        <item name="tabSelectedTextAppearance">@style/TabLayoutTextStyle.Selected</item>
+    </style>
+
+    <style name="TabLayoutTextStyle">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+    <style name="TabLayoutTextStyle.Selected">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+</resources>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_bottom_sheet_navigation"
+    app:startDestination="@+id/navigation_app_transaction">
+
+    <fragment
+        android:id="@+id/navigation_app_transaction"
+        android:name="com.example.moneymanager.fragments.TransactionFragment"
+        android:label="@string/menu_transaction"
+        tools:layout="@layout/fragment_transaction" />
+
+    <fragment
+        android:id="@+id/navigation_app_stats"
+        android:name="com.example.moneymanager.fragments.StatsFragment"
+        android:label="@string/menu_stats"
+        tools:layout="@layout/fragment_stats" />
+
+    <fragment
+        android:id="@+id/navigation_app_account"
+        android:name="com.example.moneymanager.fragments.AccountsFragment"
+        android:label="@string/menu_accounts"
+        tools:layout="@layout/fragment_accounts" />
+    <fragment
+        android:id="@+id/navigation_app_more"
+        android:name="com.example.moneymanager.fragments.MoreFragment"
+        android:label="@string/text_settings"
+        tools:layout="@layout/fragment_more" />
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_app_daily"-->
+<!--        android:name="com.example.moneymanager.fragments.DailyFragment"-->
+<!--        tools:layout="@layout/fragment_daily" />-->
+
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_app_calender"-->
+<!--        android:name="com.example.moneymanager.fragments.DailyFragment"-->
+<!--        tools:layout="@layout/fragment_calender" />-->
+
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_app_monthly"-->
+<!--        android:name="com.example.moneymanager.fragments.DailyFragment"-->
+<!--        tools:layout="@layout/fragment_monthly" />-->
+
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_app_total"-->
+<!--        android:name="com.example.moneymanager.fragments.DailyFragment"-->
+<!--        tools:layout="@layout/fragment_total" />-->
+
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_app_note"-->
+<!--        android:name="com.example.moneymanager.fragments.DailyFragment"-->
+<!--        tools:layout="@layout/fragment_note" />-->
+
+
+
+</navigation>
