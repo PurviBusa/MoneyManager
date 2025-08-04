@@ -13,12 +13,15 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moneymanager.R;
+import com.example.moneymanager.adapter.CategoryRecyclerAdapter;
 import com.example.moneymanager.customs.keyboardListner;
+
+import java.util.ArrayList;
 
 public class CustomKeyboard extends RelativeLayout implements View.OnClickListener {
     InputConnection inputConnection;
 
-    LinearLayout category_recycler;
+
     TextView txt_amount;
     private TextView txt_1, txt_2, txt_3, txt_4, txt_5, txt_6, txt_7, txt_8, txt_9, txt_0, txt_dot, txt_minus, txt_done;
     private ImageView img_backSpace, img_calculator, img_currency, img_close;
@@ -26,6 +29,7 @@ public class CustomKeyboard extends RelativeLayout implements View.OnClickListen
 
 
     private keyboardListner listner;
+
 
 
     public CustomKeyboard(Context context, keyboardListner listner) {
@@ -87,15 +91,12 @@ public class CustomKeyboard extends RelativeLayout implements View.OnClickListen
         img_close = findViewById(R.id.img_close);
         img_close.setOnClickListener(this);
         txt_amount = findViewById(R.id.txt_amount);
-        category_recycler = findViewById(R.id.category_recycler);
 
 
     }
 
     @Override
     public void onClick(View view) {
-//        Log.d("","getId:::::::::::::"+view.getId());
-
 
        int id = view.getId();
 

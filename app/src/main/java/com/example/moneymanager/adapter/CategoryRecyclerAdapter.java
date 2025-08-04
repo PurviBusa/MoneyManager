@@ -1,49 +1,60 @@
 package com.example.moneymanager.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.moneymanager.models.Category;
+import com.example.moneymanager.R;
+import com.example.moneymanager.models.CategoryItem;
 
 import java.util.ArrayList;
 import java.util.List;
+
 public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecyclerAdapter.ViewHolder> {
 
-    private List<String> categories;
-    private final OnCategoryClickListener listener;
+    private List<CategoryItem> categories;
 
-    public CategoryRecyclerAdapter(OnCategoryClickListener listener) {
-        this.listener = listener;
-    }
+    private OnCategoryClickListener listener;
 
     public interface OnCategoryClickListener {
-        void onCategoryClick(String category);
+        void onCategoryClick(CategoryItem category);
     }
 
-    public CategoryRecyclerAdapter(List<String> categories, OnCategoryClickListener listener) {
-        this.categories = categories;
+    public void setOnCategoryClickListener(OnCategoryClickListener listener) {
         this.listener = listener;
+    }
+
+    public CategoryRecyclerAdapter(ArrayList<CategoryItem> categories) {
+        this.categories = categories;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(android.R.layout.simple_list_item_1, parent, false);
+                .inflate(R.layout.item_category, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String category = categories.get(position);
-        holder.textView.setText(category);
-        holder.textView.setOnClickListener(v -> listener.onCategoryClick(category));
+        CategoryItem category = categories.get(position);
+        holder.tvCategory.setText(category.getCategoryName());
+        holder.ivNext.setVisibility(View.GONE);
+        if (!category.getSubCategory().isEmpty()) {
+            holder.ivNext.setVisibility(View.VISIBLE);
+        }
+        holder.clMain.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onCategoryClick(category); // Or pass the data object
+            }
+        });
     }
 
     @Override
@@ -52,9 +63,15 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView textView;
+        TextView tvCategory;
+        ImageView ivNext;
+        ConstraintLayout clMain;
+
         ViewHolder(View view) {
             super(view);
-            textView = view.findViewById(android.R.id.text1);
+            tvCategory = view.findViewById(R.id.tvCategory);
+            ivNext = view.findViewById(R.id.ivNext);
+            clMain = view.findViewById(R.id.clMain);
         }
-    }}
+    }
+}
