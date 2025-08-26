@@ -16,7 +16,7 @@ import com.example.moneymanager.models.CategoryItem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecyclerAdapter.ViewHolder> {
+public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecyclerAdapter.ViewHolder>  {
 
     private List<CategoryItem> categories;
 
@@ -52,7 +52,7 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
         }
         holder.clMain.setOnClickListener(v -> {
             if (listener != null) {
-                listener.onCategoryClick(category); // Or pass the data object
+                listener.onCategoryClick(category);
             }
         });
     }

@@ -1,5 +1,7 @@
 package com.example.moneymanager.activities;
 
+import android.accounts.Account;
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.graphics.Rect;
@@ -31,7 +33,9 @@ import com.example.moneymanager.Class.DatabaseHelper;
 import com.example.moneymanager.R;
 import com.example.moneymanager.adapter.CategoryRecyclerAdapter;
 import com.example.moneymanager.customs.keyboardListner;
+import com.example.moneymanager.dialog.AccountSelectionDialog;
 import com.example.moneymanager.dialog.CategorySelectionDialog;
+import com.example.moneymanager.models.AccountItem;
 import com.example.moneymanager.models.CategoryItem;
 
 import java.text.SimpleDateFormat;
@@ -40,7 +44,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class AddActivity extends AppCompatActivity implements keyboardListner, CategorySelectionDialog.OnSelectCategoryClickListener {
+public class AddActivity extends AppCompatActivity implements keyboardListner, CategorySelectionDialog.OnSelectCategoryClickListener,AccountSelectionDialog.OnselectAccountClickListner{
 
     private static final String TAG = "AddActivity";
     TextView income_button, expense_button, total_button, current_date, current_time, txt_amount,
@@ -62,6 +66,10 @@ public class AddActivity extends AppCompatActivity implements keyboardListner, C
     String inputDate = "";
     Date date = null;
     private CategorySelectionDialog categorySelectionDialog;
+
+    private AccountSelectionDialog accountSelectionDialog;
+
+    private ArrayList<AccountItem> accountList = new ArrayList<>();
     private ArrayList<CategoryItem> categoryList = new ArrayList<>();
 
 
@@ -93,6 +101,7 @@ public class AddActivity extends AppCompatActivity implements keyboardListner, C
         gride_custom = findViewById(R.id.gride_custom);
 
         initCategory();
+
 //        DatabaseHelper databaseHelper = DatabaseHelper.getDB(this);
 
 
@@ -162,14 +171,16 @@ public class AddActivity extends AppCompatActivity implements keyboardListner, C
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
 
-
+                openAccountSelectionDialog();
+                initAccount();
 //                Log.d(TAG, "onFocusChange: " + hasFocus);
 
-                if (hasFocus) {
-                    showCustomKeyboard();
+//                if (hasFocus) {
+//                    showCustomKeyboard();
 
-                } else
-                    hideCustomKeyboard();
+//                }
+//                else
+//                    hideCustomKeyboard();
             }
         });
         txt_amount.setRawInputType(InputType.TYPE_CLASS_TEXT);
@@ -400,10 +411,21 @@ public class AddActivity extends AppCompatActivity implements keyboardListner, C
 
     }
 
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+        super.onPointerCaptureChanged(hasCapture);
+    }
+
     public void openCategorySelectionDialog() {
         categorySelectionDialog = new CategorySelectionDialog(categoryList);
         categorySelectionDialog.setOnSelectCategoryClickListener(this);
         categorySelectionDialog.show(getSupportFragmentManager(), "Category selection");
+    }
+
+    public void openAccountSelectionDialog() {
+        accountSelectionDialog = new AccountSelectionDialog(accountList);
+        accountSelectionDialog.setOnSelectAccountClickListener(this);
+        accountSelectionDialog.show(getSupportFragmentManager(), "Account selection");
     }
 
     private void updateCategoryList() {
@@ -450,6 +472,31 @@ public class AddActivity extends AppCompatActivity implements keyboardListner, C
             income_category.setText(category.getCategoryName());
         } else {
             income_category.setText(category.getCategoryName() + "/" + category.getSubCategory().get(0));
+        }
+
+    }
+
+    private  void initAccount(){
+
+        ArrayList<AccountItem> accountItems = new ArrayList<>();
+        accountItems.add(new AccountItem(0,"Cash"));
+        accountItems.add(new AccountItem(0,"Accounts"));
+        accountItems.add(new AccountItem(0,"Card"));
+
+
+    }
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    public void onSelectAccount(AccountItem account) {
+        if (account.getAccountName().isEmpty()) {
+            income_account.setText(account.getAccountName());
+            income_account.setText(accountList.toString());
+
+        }else {
+           income_account.setText(account.getAccountName() + "/" + account.getAccountName().toString());
+
+
         }
 
     }
