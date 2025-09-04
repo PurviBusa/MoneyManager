@@ -10,8 +10,6 @@
     android:paddingHorizontal="12dp"
     tools:context=".fragments.MoreFragment">
 
-
-
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewconfi"
         android:layout_width="match_parent"
@@ -30,8 +28,6 @@
             android:src="@drawable/setting" />
 
         <TextView
-
-
             android:id="@+id/configuration"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_33sdp"
@@ -41,7 +37,6 @@
             android:textSize="@dimen/_16sdp"
             android:textStyle="bold" />
 
-
         <ImageView
             android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
@@ -49,7 +44,6 @@
             android:layout_marginStart="@dimen/_265sdp"
             android:padding="@dimen/_2sdp"
             android:src="@drawable/confimorearrow" />
-
 
     </androidx.cardview.widget.CardView>
 
@@ -81,7 +75,6 @@
             android:textSize="@dimen/_16sdp"
             android:textStyle="bold" />
 
-
         <ImageView
             android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
@@ -89,7 +82,6 @@
             android:layout_marginStart="@dimen/_265sdp"
             android:padding="@dimen/_2sdp"
             android:src="@drawable/confimorearrow" />
-
 
     </androidx.cardview.widget.CardView>
 
@@ -121,7 +113,6 @@
             android:textSize="@dimen/_16sdp"
             android:textStyle="bold" />
 
-
         <ImageView
             android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
@@ -129,7 +120,6 @@
             android:layout_marginStart="@dimen/_265sdp"
             android:padding="@dimen/_2sdp"
             android:src="@drawable/confimorearrow" />
-
 
     </androidx.cardview.widget.CardView>
 
@@ -159,7 +149,6 @@
             android:textSize="@dimen/_16sdp"
             android:textStyle="bold" />
 
-
         <ImageView
             android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
@@ -168,9 +157,6 @@
             android:padding="@dimen/_2sdp"
             android:src="@drawable/confimorearrow" />
 
-
     </androidx.cardview.widget.CardView>
-
-
 
 </RelativeLayout>

@@ -31,6 +31,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.moneymanager.Class.CustomKeyboard;
 import com.example.moneymanager.Class.DatabaseHelper;
 import com.example.moneymanager.R;
+import com.example.moneymanager.adapter.AccountAdapter;
 import com.example.moneymanager.adapter.CategoryRecyclerAdapter;
 import com.example.moneymanager.customs.keyboardListner;
 import com.example.moneymanager.dialog.AccountSelectionDialog;
@@ -61,6 +62,8 @@ public class AddActivity extends AppCompatActivity implements keyboardListner, C
 
 
     CategoryRecyclerAdapter adpter;
+
+    AccountAdapter accountAdapter;
     private static CustomKeyboard customKeyboard;
 
     String inputDate = "";
@@ -486,7 +489,7 @@ public class AddActivity extends AppCompatActivity implements keyboardListner, C
 
     }
 
-    @SuppressLint("SetTextI18n")
+
     @Override
     public void onSelectAccount(AccountItem account) {
         if (account.getAccountName().isEmpty()) {

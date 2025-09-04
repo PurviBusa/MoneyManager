@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".activities.IncomeCategoryActivity">
 
     <RelativeLayout
@@ -16,42 +16,89 @@
         android:padding="@dimen/_5sdp">
 
         <ImageView
-            android:layout_width="@dimen/_22sdp"
-            android:layout_height="@dimen/_22sdp"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/_2sdp"
             android:layout_marginTop="@dimen/_25sdp"
             android:minHeight="@dimen/_40sdp"
-            android:padding="@dimen/_1sdp"
-            android:src="@drawable/backarrow" />
+            android:padding="@dimen/_5sdp"
+            android:src="@drawable/backarrow"
+            app:tint="@color/black" />
 
         <TextView
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/_30sdp"
             android:layout_marginTop="@dimen/_23sdp"
             android:padding="@dimen/_1sdp"
-            android:text="Income Category"
+            android:text="@string/income_category"
             android:textColor="@color/black"
             android:textSize="@dimen/_15sdp" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/income_plus"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
             android:layout_alignParentEnd="true"
+            android:padding="@dimen/_5sdp"
             android:layout_centerVertical="true"
-            android:src="@drawable/addblack"/>
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:src="@drawable/addblack"
+            android:visibility="visible" />
 
     </RelativeLayout>
+
     <View
         android:id="@+id/viewLL"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_1sdp"
         android:layout_below="@id/Relative"
-        android:background="@color/gray" />
+        android:background="@color/lightWhite" />
 
+    <LinearLayout
+        android:id="@+id/llSUb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/viewLL"
+        android:orientation="horizontal">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:text="@string/subcategory"
+            android:textSize="@dimen/_13sdp"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_15sdp" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:layout_below="@id/llSUb"
+        android:background="#E7E3E3" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:layout_below="@id/view"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:background="#E7E3E3"
+        android:visibility="visible" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/income_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view2"
+        android:layout_marginStart="@dimen/_5sdp" />
 
 </RelativeLayout>

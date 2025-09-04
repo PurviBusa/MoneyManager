@@ -38,7 +38,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.dialog_accounts_selection, parent, false);
+                .inflate(R.layout.item_account, parent, false);
 
         return new ViewHolder(view);
     }
@@ -80,7 +80,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.ViewHold
             super(view);
 
             tvAccount = view.findViewById(R.id.tvAccount);
-//            accountNext = view.findViewById(R.id.accountNext);
+            accountNext = view.findViewById(R.id.accountNext);
             clAccount = view.findViewById(R.id.clAccount);
         }
     }
