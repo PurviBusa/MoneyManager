@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.ConfigurationActivity"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:id="@+id/confiRelative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp">
+
+        <ImageView
+            android:id="@+id/backArrow_confi"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:minHeight="@dimen/_40sdp"
+            android:padding="@dimen/_1sdp"
+            android:src="@drawable/backarrow" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_23sdp"
+            android:padding="@dimen/_1sdp"
+            android:text="@string/configuration"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_18sdp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/viewConfi"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:layout_below="@id/confiRelative"
+        android:background="@color/gray" />
+
+    <LinearLayout
+        android:id="@+id/linearConfi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/viewConfi"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:background="#1FC7BFBF"
+            android:gravity="center_vertical"
+            android:text="@string/category_repeat"
+            android:textSize="@dimen/_13sdp"
+            android:layout_marginStart="@dimen/_15sdp"/>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/viewLL"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:layout_below="@id/linearConfi"
+        android:background="@color/gray" />
+
+    <LinearLayout
+        android:id="@+id/confiLL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/viewLL"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/incomeCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/income_category_setting"
+            android:textColor="#070707"
+            android:textSize="@dimen/_13sdp" />
+
+        <TextView
+            android:id="@+id/txtexp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:text="Expenses Category setting"
+            android:textColor="#070707"
+            android:textSize="@dimen/_13sdp" />
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/txtSubCat"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="Sub category"-->
+        <!--            android:layout_marginTop="@dimen/_12sdp"-->
+        <!--            android:textSize="@dimen/_13sdp"-->
+        <!--            android:layout_marginStart="@dimen/_15sdp"-->
+        <!--            android:textColor="#070707"/>-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtexp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/sub_category"
+                android:textColor="#070707"
+                android:textSize="@dimen/_13sdp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_200sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/on"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/_13sdp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:text="@string/budget_setting"
+            android:textColor="#070707"
+            android:textSize="@dimen/_13sdp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:text="@string/repeat_setting"
+            android:textColor="#070707"
+            android:textSize="@dimen/_13sdp" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/viewTT"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:layout_below="@id/confiLL"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="@color/gray" />
+
+    <LinearLayout
+        android:id="@+id/linearTT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/viewTT"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:background="#1FC7BFBF"
+            android:gravity="center_vertical"
+            android:text="@string/configuration"
+            android:textSize="@dimen/_13sdp"
+            android:layout_marginStart="@dimen/_15sdp"/>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/viewPP"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:layout_below="@id/linearTT"
+        android:background="@color/gray" />
+
+    <LinearLayout
+        android:id="@+id/linearBB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/viewPP"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/main_currency_setting"
+                android:textColor="#070707"
+                android:textSize="@dimen/_13sdp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_130sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/gbp"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/_13sdp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/sub_currency_setting"
+            android:textColor="#070707"
+            android:textSize="@dimen/_13sdp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtexp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/start_screen_daily_calendar"
+                android:textColor="#070707"
+                android:textSize="@dimen/_13sdp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_100sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/daily"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/_13sdp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/monthly_start_date"
+                android:textColor="#070707"
+                android:textSize="@dimen/_13sdp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_150sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/every_1"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/_13sdp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/weekly_start_day"
+                android:textColor="#070707"
+                android:textSize="@dimen/_13sdp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_160sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/sunday"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/_13sdp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
