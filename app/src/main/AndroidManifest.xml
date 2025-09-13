@@ -26,6 +26,7 @@
             android:exported="false" />
         <activity
             android:name=".activities.AddActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
             android:exported="false" />
         <activity
             android:name=".activities.SplashScreenActivity"

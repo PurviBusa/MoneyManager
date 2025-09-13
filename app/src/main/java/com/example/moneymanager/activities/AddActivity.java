@@ -1,41 +1,41 @@
 package com.example.moneymanager.activities;
 
+
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 import android.accounts.Account;
-import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.text.Editable;
 import android.text.InputType;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moneymanager.Class.CustomKeyboard;
-import com.example.moneymanager.Class.DatabaseHelper;
 import com.example.moneymanager.R;
 import com.example.moneymanager.adapter.AccountAdapter;
 import com.example.moneymanager.adapter.CategoryRecyclerAdapter;
 import com.example.moneymanager.customs.keyboardListner;
-import com.example.moneymanager.dialog.AccountSelectionDialog;
-import com.example.moneymanager.dialog.CategorySelectionDialog;
 import com.example.moneymanager.models.AccountItem;
 import com.example.moneymanager.models.CategoryItem;
 
@@ -45,35 +45,30 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class AddActivity extends AppCompatActivity implements keyboardListner, CategorySelectionDialog.OnSelectCategoryClickListener,AccountSelectionDialog.OnselectAccountClickListner{
+public class AddActivity extends AppCompatActivity implements keyboardListner {
 
     private static final String TAG = "AddActivity";
+
     TextView income_button, expense_button, total_button, current_date, current_time, txt_amount,
-            income_category, income_account;
+            income_category, income_account, save_button;
     EditText income_note;
-    ImageView img_backarrow;
+    int colorTheme;
+    LinearLayout category_item, account_item;
+    ImageView img_backarrow, img_more;
     Calendar calendar;
-    LinearLayout LinerLL;
     SimpleDateFormat simpleDateFormat;
     SimpleDateFormat simpleDateFormat2;
-    View date_view, amount_view, category_view, account_view, note_view;
-    DatabaseHelper databaseHelper;
     GridLayout gride_custom;
-
-
-    CategoryRecyclerAdapter adpter;
-
-    AccountAdapter accountAdapter;
+    View amount_view, date_view, category_view, account_view, note_view;
     private static CustomKeyboard customKeyboard;
 
-    String inputDate = "";
-    Date date = null;
-    private CategorySelectionDialog categorySelectionDialog;
+    RecyclerView categoryRecyclerView,account_recycler;
+    ConstraintLayout category_main;
+    CategoryRecyclerAdapter categoryAdapter;
 
-    private AccountSelectionDialog accountSelectionDialog;
-
-    private ArrayList<AccountItem> accountList = new ArrayList<>();
-    private ArrayList<CategoryItem> categoryList = new ArrayList<>();
+    AccountAdapter accountAdapter;
+    ArrayList<CategoryItem> categoryList;
+    ArrayList<AccountItem> accountList;
 
 
     @Override
@@ -81,9 +76,22 @@ public class AddActivity extends AppCompatActivity implements keyboardListner, C
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
-//      setupFocusListeners();
-        customKeyboard = findViewById(R.id.custom_key);
-//        Log.d("", "customKeyboard::::::::::::::" + customKeyboard);
+        colorTheme = R.color.blue;
+        initViews();
+        setupCategoryRecycler();
+        setupAmountRecycler();
+        setupListeners();
+        setupDateTime();
+
+        category_item.setVisibility(GONE);
+        account_item.setVisibility(GONE);
+
+        txt_amount.requestFocus();
+        setButtonSelection("income");
+        showCustomKeyboard();
+    }
+
+    private void initViews() {
         income_button = findViewById(R.id.income_button);
         expense_button = findViewById(R.id.expense_button);
         total_button = findViewById(R.id.total_button);
@@ -91,256 +99,294 @@ public class AddActivity extends AppCompatActivity implements keyboardListner, C
         current_date = findViewById(R.id.current_date);
         current_time = findViewById(R.id.current_time);
         txt_amount = findViewById(R.id.txt_amount);
-        img_backarrow = findViewById(R.id.img_backarrow);
-        date_view = findViewById(R.id.date_view);
-        current_date = findViewById(R.id.current_date);
         income_category = findViewById(R.id.income_category);
         income_account = findViewById(R.id.income_account);
         income_note = findViewById(R.id.income_note);
-        amount_view = findViewById(R.id.account_view);
+        gride_custom = findViewById(R.id.gride_custom);
+        categoryRecyclerView = findViewById(R.id.category_recycler);
+        category_item = findViewById(R.id.category_item);
+        customKeyboard = findViewById(R.id.custom_key);
+        img_more = findViewById(R.id.img_more);
+        amount_view = findViewById(R.id.amount_view);
+        date_view = findViewById(R.id.date_view);
         category_view = findViewById(R.id.category_view);
         account_view = findViewById(R.id.account_view);
         note_view = findViewById(R.id.note_view);
-        gride_custom = findViewById(R.id.gride_custom);
-
-        initCategory();
-
-//        DatabaseHelper databaseHelper = DatabaseHelper.getDB(this);
-
-
-        img_backarrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-
-            }
-        });
-
+        account_item = findViewById(R.id.account_item);
+        save_button = findViewById(R.id.save_button);
+        account_recycler = findViewById(R.id.account_recycler);
 
         txt_amount.setShowSoftInputOnFocus(false);
         income_category.setShowSoftInputOnFocus(false);
         income_account.setShowSoftInputOnFocus(false);
 
+        txt_amount.setRawInputType(InputType.TYPE_CLASS_TEXT);
+        txt_amount.setCursorVisible(false);
+        income_category.setRawInputType(InputType.TYPE_CLASS_TEXT);
+        income_category.setCursorVisible(false);
+        income_account.setRawInputType(InputType.TYPE_CLASS_TEXT);
+        income_account.setCursorVisible(false);
 
-        income_note.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    hideCustomKeyboard();
-                }
+        txt_amount.setTextIsSelectable(true);
+        income_category.setTextIsSelectable(true);
+        income_account.setTextIsSelectable(true);
+
+    }
+
+    private void setupAmountRecycler() {
+        accountList = new ArrayList<>();
+        accountList.add(new AccountItem("Cash"));
+        accountList.add(new AccountItem("Account"));
+        accountList.add(new AccountItem("Card"));
+        accountList.add(new AccountItem("Debit Card"));
+
+        accountAdapter = new AccountAdapter(accountList);
+        accountAdapter.setOnAccountClickListener(accountItem -> {
+            income_account.setText(accountItem.getAccountName());
+            gride_custom.setVisibility(GONE);
+            category_item.setVisibility(GONE);
+
+
+        });
+        account_recycler.setLayoutManager(new GridLayoutManager(this,3));
+        account_recycler.setAdapter(accountAdapter);
+
+    }
+
+
+    private void setupCategoryRecycler() {
+        categoryList = new ArrayList<>();
+        categoryList.add(new CategoryItem("Salary"));
+        categoryList.add(new CategoryItem("Petty Cash"));
+        categoryList.add(new CategoryItem("Bonus"));
+        categoryList.add(new CategoryItem("Award"));
+        categoryList.add(new CategoryItem("Allowance"));
+
+        categoryAdapter = new CategoryRecyclerAdapter(categoryList);
+        categoryAdapter.setOnCategoryClickListener(categoryItem -> {
+
+            income_category.setText(categoryItem.getCategoryName());
+            category_item.setVisibility(GONE);
+            account_item.setVisibility(GONE);
+        });
+
+        categoryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        categoryRecyclerView.setAdapter(categoryAdapter);
+    }
+
+    private void setupListeners() {
+        img_backarrow.setOnClickListener(v -> onBackPressed());
+
+        customKeyboard.setListener(this);
+
+
+        txt_amount.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                gride_custom.setVisibility(VISIBLE);
+                category_item.setVisibility(GONE);
+                account_item.setVisibility(GONE);
+                amount_view.setBackgroundColor(ContextCompat.getColor(this, colorTheme));
+                showCustomKeyboard();
+
+
+            } else {
+                amount_view.setBackgroundColor(ContextCompat.getColor(this, R.color.lightGray));
+                hideCustomKeyboard();
+
             }
         });
 
 
-        customKeyboard.setListener(this);
+        income_note.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                category_item.setVisibility(GONE);
+                account_item.setVisibility(GONE);
+                note_view.setBackgroundColor(ContextCompat.getColor(this, colorTheme));
+                hideCustomKeyboard();
+            } else {
+                note_view.setBackgroundColor(ContextCompat.getColor(this, R.color.lightGray));
+            }
+        });
 
-        txt_amount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        img_more.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-
-                if (hasFocus) {
-                    gride_custom.setVisibility(View.VISIBLE);
-                    showCustomKeyboard();
-
-                } else
-                    hideCustomKeyboard();
-
-
+            public void onClick(View v) {
+                Intent intent = new Intent(AddActivity.this, IncomeCategoryActivity.class);
+                startActivity(intent);
             }
         });
 
         income_category.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    View view = income_category;
+                    if (imm != null) {
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    }
+                    gride_custom.setVisibility(GONE);
+                    account_item.setVisibility(GONE);
+                    category_item.setVisibility(VISIBLE);
+                    category_view.setBackgroundColor(ContextCompat.getColor(AddActivity.this, colorTheme));
 
-
-//                Log.d(TAG, "onFocusChange: " + hasFocus);
+                } else {
+                    category_view.setBackgroundColor(ContextCompat.getColor(AddActivity.this, R.color.lightGray));
+                }
+            }
+        });
+        income_account.setOnFocusChangeListener((v, hasFocus) -> {
 
                 if (hasFocus) {
-                    gride_custom.setVisibility(View.GONE);
-
-                    openCategorySelectionDialog();
-
-
-//                    showCustomKeyboard();
-
-                } else
-                    hideCustomKeyboard();
-
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    View view = income_account;
+                    if (imm != null) {
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    }
+                gride_custom.setVisibility(GONE);
+                category_item.setVisibility(GONE);
+                account_item.setVisibility(VISIBLE);
+                account_view.setBackgroundColor(ContextCompat.getColor(this, colorTheme));
+            } else {
+                account_view.setBackgroundColor(ContextCompat.getColor(this, R.color.lightGray));
             }
         });
 
-        income_account.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
 
-                openAccountSelectionDialog();
-                initAccount();
-//                Log.d(TAG, "onFocusChange: " + hasFocus);
-
-//                if (hasFocus) {
-//                    showCustomKeyboard();
-
-//                }
-//                else
-//                    hideCustomKeyboard();
-            }
-        });
-        txt_amount.setRawInputType(InputType.TYPE_CLASS_TEXT);
-        income_category.setRawInputType(InputType.TYPE_CLASS_TEXT);
-        income_account.setRawInputType(InputType.TYPE_CLASS_TEXT);
-        txt_amount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                txt_amount.setCursorVisible(false);
-                customKeyboard.setVisibility(View.VISIBLE);
-            }
-
-        });
-
-
-        txt_amount.setTextIsSelectable(true);
-        income_category.setTextIsSelectable(true);
-        income_account.setTextIsSelectable(true);
-
-
-        if (calendar == null)
-            calendar = Calendar.getInstance();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
-            simpleDateFormat2 = new SimpleDateFormat("EEE", Locale.getDefault());
-            inputDate = simpleDateFormat.format(calendar.getTime());
-            String day = simpleDateFormat2.format(new Date());
-
-            current_date.setText(inputDate + " (" + day + ")");
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                simpleDateFormat = new SimpleDateFormat("hh:mm a");
-                inputDate = simpleDateFormat.format(calendar.getTime());
-            }
-            current_time.setText(inputDate);
-
-            current_date.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    openDatePicker();
-
-
-                }
-            });
-
-            current_time.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    openTimePicker();
-                }
-            });
-            img_backarrow.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onBackPressed();
-                }
-            });
-
-
-            income_button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    income_button.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.incomebutton));
-                    expense_button.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.total_expence));
-                    total_button.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.total_expence));
-                    income_button.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.blue));
-                    expense_button.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.gray));
-                    total_button.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.gray));
-                }
-            });
-
-            expense_button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    income_button.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.total_expence));
-                    expense_button.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.expense_selector));
-                    total_button.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.total_expence));
-                    income_button.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.gray));
-                    expense_button.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.orange));
-                    total_button.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.gray));
-
-                }
-            });
-            total_button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    income_button.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.total_expence));
-                    expense_button.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.total_expence));
-                    total_button.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.total_selected));
-                    income_button.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.gray));
-                    expense_button.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.gray));
-                    total_button.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.darkgray));
-                }
-            });
-
-
-        }
-
-
+        income_button.setOnClickListener(v -> setButtonSelection("income"));
+        expense_button.setOnClickListener(v -> setButtonSelection("expense"));
+        total_button.setOnClickListener(v -> setButtonSelection("total"));
     }
 
-    private void openTimePicker() {
+    private void setupDateTime() {
+        if (calendar == null) calendar = Calendar.getInstance();
 
-        if (calendar == null)
-            calendar = Calendar.getInstance();
+        simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+        simpleDateFormat2 = new SimpleDateFormat("EEE", Locale.getDefault());
 
-        int HOUR = calendar.get(Calendar.HOUR);
-        int MINUTE = calendar.get(calendar.MINUTE);
+        String inputDate = simpleDateFormat.format(calendar.getTime());
+        String day = simpleDateFormat2.format(new Date());
+        current_date.setText(inputDate + " (" + day + ")");
+
+        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
+        current_time.setText(timeFormat.format(calendar.getTime()));
+
+        current_date.setOnClickListener(v -> {
+            date_view.setBackgroundColor(ContextCompat.getColor(this, colorTheme));
+            openDatePicker();
+        });
 
 
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+        current_time.setOnClickListener(v -> {
+            date_view.setBackgroundColor(ContextCompat.getColor(this, colorTheme));
+            openTimePicker();
+        });
+    }
 
-
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                current_time.setText(hourOfDay + ":" + minute);
-
-            }
-
-
-        }, HOUR, MINUTE, false);
-        timePickerDialog.show();
+    private void setButtonSelection(String type) {
+        switch (type) {
+            case "income":
+                income_button.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.incomebutton));
+                expense_button.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.total_expence));
+                total_button.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.total_expence));
+                income_button.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.blue));
+                expense_button.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.gray));
+                total_button.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.gray));
+                save_button.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.blue));
+                colorTheme = R.color.blue;
+                txt_amount.clearFocus();
+                income_note.clearFocus();
+                income_category.clearFocus();
+                income_account.clearFocus();
+                txt_amount.requestFocus();
+                break;
+            case "expense":
+                income_button.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.total_expence));
+                expense_button.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.expense_selector));
+                total_button.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.total_expence));
+                income_button.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.gray));
+                expense_button.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.orange));
+                total_button.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.gray));
+                save_button.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.orange));
+                colorTheme = R.color.orange;
+                txt_amount.clearFocus();
+                income_note.clearFocus();
+                income_category.clearFocus();
+                income_account.clearFocus();
+                txt_amount.requestFocus();
+                break;
+            case "total":
+                income_button.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.total_expence));
+                expense_button.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.total_expence));
+                total_button.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.total_selected));
+                income_button.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.gray));
+                expense_button.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.gray));
+                total_button.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.darkgray));
+                save_button.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.darkgray));
+                colorTheme = R.color.darkgray;
+                txt_amount.clearFocus();
+                income_note.clearFocus();
+                income_category.clearFocus();
+                income_account.clearFocus();
+                txt_amount.requestFocus();
+                break;
+        }
     }
 
     private void openDatePicker() {
-        if (calendar == null)
-            calendar = Calendar.getInstance();
+        if (calendar == null) calendar = Calendar.getInstance();
 
         int YEAR = calendar.get(Calendar.YEAR);
         int MONTH = calendar.get(Calendar.MONTH);
         int DATE = calendar.get(Calendar.DATE);
 
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                month = month + 1;
-                Calendar selectedDate = Calendar.getInstance();
-                selectedDate.set(year, month - 1, dayOfMonth);
-                SimpleDateFormat dateFormat = new SimpleDateFormat(" dd/MM/yyyy (EEE)", Locale.getDefault());
-                String formattedDate = dateFormat.format(selectedDate.getTime());
-
-                current_date.setText(formattedDate);
-            }
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
+            Calendar selectedDate = Calendar.getInstance();
+            selectedDate.set(year, month, dayOfMonth);
+            SimpleDateFormat dateFormat = new SimpleDateFormat(" dd/MM/yyyy (EEE)", Locale.getDefault());
+            current_date.setText(dateFormat.format(selectedDate.getTime()));
         }, YEAR, MONTH, DATE);
+
+
+        datePickerDialog.setOnDismissListener(dialog ->
+                date_view.setBackgroundColor(ContextCompat.getColor(this, R.color.lightGray))
+        );
+
         datePickerDialog.show();
     }
 
+    private void openTimePicker() {
+        if (calendar == null) calendar = Calendar.getInstance();
+        int HOUR = calendar.get(Calendar.HOUR_OF_DAY);
+        int MINUTE = calendar.get(Calendar.MINUTE);
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, (view, hourOfDay, minute) -> {
+
+            Calendar selectedTime = Calendar.getInstance();
+            selectedTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            selectedTime.set(Calendar.MINUTE, minute);
+
+
+            SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+            String formattedTime = timeFormat.format(selectedTime.getTime());
+
+            current_time.setText(formattedTime);
+        }, HOUR, MINUTE, false);
+
+        timePickerDialog.setOnDismissListener(dialog ->
+                date_view.setBackgroundColor(ContextCompat.getColor(this, R.color.lightGray))
+        );
+
+        timePickerDialog.show();
+    }
+
     public void showCustomKeyboard() {
-        customKeyboard.setVisibility(View.VISIBLE);
+        customKeyboard.setVisibility(VISIBLE);
         hideSystemKeyboard();
     }
 
     public void hideCustomKeyboard() {
-
-        customKeyboard.setVisibility(View.GONE);
-        Log.d(TAG, "hideCustomKeyboard: ");
+        customKeyboard.setVisibility(GONE);
     }
 
     public void hideSystemKeyboard() {
@@ -348,160 +394,64 @@ public class AddActivity extends AppCompatActivity implements keyboardListner, C
         if (imm != null) {
             imm.hideSoftInputFromWindow(customKeyboard.getWindowToken(), 0);
         }
-
     }
-
 
     @Override
     public void setValue(String value) {
-        String currentText = txt_amount.getText().toString().trim();
+        String currentText = txt_amount.getText().toString().replace("£", "").trim();
+        boolean isNegative = false;
+        String numberPart = currentText;
 
-        boolean isNegative = currentText.startsWith("- ");
-        String numberPart = isNegative ? currentText.substring(2) : currentText;
+        if (currentText.startsWith("-")) {
+            isNegative = true;
+            numberPart = currentText.substring(1);
+        }
 
         switch (value) {
-            case "-":
-
-                isNegative = true;
-                break;
-
             case "DEL":
-                if (!numberPart.isEmpty()) {
+                if (!numberPart.isEmpty())
                     numberPart = numberPart.substring(0, numberPart.length() - 1);
-                } else if (isNegative) {
-
-                    isNegative = false;
-                }
+                if (numberPart.isEmpty()) isNegative = false;
                 break;
-
+            case "-":
+                isNegative = !isNegative;
+                break;
             default:
                 numberPart += value;
                 break;
         }
 
-        String finalText = (isNegative ? "- " : "") + numberPart;
-        txt_amount.setText(finalText);
+        if (numberPart.isEmpty()) txt_amount.setText("");
+        else txt_amount.setText("£  " + (isNegative ? "-" : "") + numberPart);
     }
 
+    @Override
 
     public void onBackPressed() {
-        if (customKeyboard.getVisibility() == View.VISIBLE) {
+        if (customKeyboard.getVisibility() == VISIBLE || category_item.getVisibility() == VISIBLE) {
+            customKeyboard.setVisibility(GONE);
+            category_item.setVisibility(GONE);
 
-            customKeyboard.setVisibility(View.GONE);
+
             getWindow().getDecorView().clearFocus();
-
         } else {
             super.onBackPressed();
         }
-
-
     }
 
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
-            View v = getCurrentFocus();
-            if (v != null && customKeyboard.getVisibility() == View.VISIBLE) {
-                Rect outRect = new Rect();
-                customKeyboard.getGlobalVisibleRect(outRect);
-                if (!outRect.contains((int) ev.getRawX(), (int) ev.getRawY())) {
-                    customKeyboard.setVisibility(View.GONE);
-                }
-            }
-        }
-
-        return super.dispatchTouchEvent(ev);
-
-
-    }
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-        super.onPointerCaptureChanged(hasCapture);
-    }
-
-    public void openCategorySelectionDialog() {
-        categorySelectionDialog = new CategorySelectionDialog(categoryList);
-        categorySelectionDialog.setOnSelectCategoryClickListener(this);
-        categorySelectionDialog.show(getSupportFragmentManager(), "Category selection");
-    }
-
-    public void openAccountSelectionDialog() {
-        accountSelectionDialog = new AccountSelectionDialog(accountList);
-        accountSelectionDialog.setOnSelectAccountClickListener(this);
-        accountSelectionDialog.show(getSupportFragmentManager(), "Account selection");
-    }
-
-    private void updateCategoryList() {
-        initCategory();
-        categorySelectionDialog.updateCategorylist(categoryList);
-    }
-
-    private void initCategory() {
-        categoryList.clear();
-        ArrayList<String> foodCategory = new ArrayList<>();
-        foodCategory.add("Lunch");
-        foodCategory.add("Dinner");
-        foodCategory.add("Eating out");
-        foodCategory.add("Beverages");
-
-        ArrayList<String> socialCategory = new ArrayList<>();
-        socialCategory.add("Friend");
-        socialCategory.add("Fellowship");
-        socialCategory.add("Alumni");
-        socialCategory.add("Dues");
-
-        ArrayList<String> transportCategory = new ArrayList<>();
-        transportCategory.add("Bus");
-        transportCategory.add("Subway");
-        transportCategory.add("Taxi");
-        transportCategory.add("Car");
-        ArrayList<String> cultureCategory = new ArrayList<>();
-        cultureCategory.add("Books");
-        cultureCategory.add("Movie");
-        cultureCategory.add("Music");
-        cultureCategory.add("Apps");
-
-        categoryList.add(new CategoryItem("Food", foodCategory));
-        categoryList.add(new CategoryItem("Social life", socialCategory));
-        categoryList.add(new CategoryItem("Pets", new ArrayList<>()));
-        categoryList.add(new CategoryItem("Transport", transportCategory));
-        categoryList.add(new CategoryItem("Culture", cultureCategory));
-    }
-
-    @Override
-    public void onSelectCategory(CategoryItem category) {
-//        Log.d("onSelectCategory", "onSelectCategory::::::::::::::::" + category);
-        if (category.getSubCategory().isEmpty()) {
-            income_category.setText(category.getCategoryName());
-        } else {
-            income_category.setText(category.getCategoryName() + "/" + category.getSubCategory().get(0));
-        }
-
-    }
-
-    private  void initAccount(){
-
-        ArrayList<AccountItem> accountItems = new ArrayList<>();
-        accountItems.add(new AccountItem(0,"Cash"));
-        accountItems.add(new AccountItem(0,"Accounts"));
-        accountItems.add(new AccountItem(0,"Card"));
+//    @Override
+//    public boolean dispatchTouchEvent(MotionEvent ev) {
+//        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+//            if (customKeyboard.getVisibility() == VISIBLE) {
+//                Rect outRect = new Rect();
+//                customKeyboard.getGlobalVisibleRect(outRect);
+//                if (!outRect.contains((int) ev.getRawX(), (int) ev.getRawY())) {
+//                    customKeyboard.setVisibility(GONE);
+//                }
+//            }
+//        }
+//        return super.dispatchTouchEvent(ev);
+//    }
 
 
-    }
-
-
-    @Override
-    public void onSelectAccount(AccountItem account) {
-        if (account.getAccountName().isEmpty()) {
-            income_account.setText(account.getAccountName());
-            income_account.setText(accountList.toString());
-
-        }else {
-           income_account.setText(account.getAccountName() + "/" + account.getAccountName().toString());
-
-
-        }
-
-    }
 }
-

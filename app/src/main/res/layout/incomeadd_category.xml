@@ -16,6 +16,7 @@
         android:layout_marginVertical="@dimen/_10sdp">
 
         <ImageView
+            android:id="@+id/back_incomeCategory"
             android:layout_width="@dimen/_22sdp"
             android:layout_height="@dimen/_22sdp"
             android:layout_centerVertical="true"
@@ -80,6 +81,7 @@
         android:layout_below="@+id/categoryET"/>
 
     <TextView
+        android:id="@+id/tvSave"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"

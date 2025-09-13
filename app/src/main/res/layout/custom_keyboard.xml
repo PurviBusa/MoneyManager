@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linear_main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -46,7 +47,6 @@
     </RelativeLayout>
 
 
-
     <GridLayout
 
         android:id="@+id/gride_custom"
@@ -55,8 +55,8 @@
         android:layout_below="@+id/relative_layout"
         android:layout_centerHorizontal="true"
         android:columnCount="4"
-        android:visibility="visible"
-        android:rowCount="4">
+        android:rowCount="4"
+        android:visibility="visible">
 
 
         <TextView
@@ -106,13 +106,13 @@
             android:layout_width="@dimen/_2sdp"
             android:layout_height="@dimen/_2sdp"
             android:layout_rowWeight="1"
-            android:padding="@dimen/_15sdp"
             android:layout_columnWeight="1"
             android:layout_centerHorizontal="true"
             android:layout_gravity="fill"
             android:background="@drawable/button_dig"
-            android:src="@drawable/backarrow_keyboard"
             android:gravity="center"
+            android:padding="@dimen/_15sdp"
+            android:src="@drawable/backarrow_keyboard"
             android:textSize="@dimen/_20sdp"
             android:textStyle="bold" />
 
@@ -219,13 +219,13 @@
             android:layout_width="@dimen/_2sdp"
             android:layout_height="@dimen/_2sdp"
             android:layout_rowWeight="1"
-            android:padding="@dimen/_13sdp"
             android:layout_columnWeight="1"
-            android:src="@drawable/calculator_design"
             android:layout_centerHorizontal="true"
             android:layout_gravity="fill"
             android:background="@drawable/button_dig"
             android:gravity="center"
+            android:padding="@dimen/_13sdp"
+            android:src="@drawable/calculator_design"
             android:textSize="@dimen/_20sdp"
             android:textStyle="bold" />
 
@@ -290,6 +290,6 @@
     </GridLayout>
 
 
-
-
 </LinearLayout>
+
+

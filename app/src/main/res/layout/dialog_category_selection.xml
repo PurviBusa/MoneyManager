@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
@@ -25,7 +27,7 @@
             android:textSize="@dimen/_15sdp" />
 
         <ImageView
-            android:id="@+id/img_currency"
+            android:id="@+id/img_more"
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
             android:layout_alignParentEnd="true"
@@ -49,6 +51,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:maxHeight="@dimen/_150sdp"
         android:orientation="horizontal"
         android:layout_centerInParent="true"
         app:layout_constraintTop_toBottomOf="@+id/rlTop"
@@ -62,18 +65,18 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="vertical"
             android:layout_weight="1" />
+
         <View
-            android:layout_width="1dp"
+            android:layout_width="@dimen/_1sdp"
             android:layout_height="match_parent"
-            android:background="#000000"/>
+            android:background="@color/gray"/>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/subcategory_recycler"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/rcvSubCategory"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="vertical"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
 
     </LinearLayout>

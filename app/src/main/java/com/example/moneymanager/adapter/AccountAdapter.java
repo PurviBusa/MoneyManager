@@ -12,31 +12,43 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moneymanager.R;
 import com.example.moneymanager.models.AccountItem;
+import com.example.moneymanager.models.CategoryItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.ViewHolder> {
 
-    private List<AccountItem> accounts;
+    private List<AccountItem> accounts = new ArrayList<>();
 
-    private OnAccountClickListener listener;
+    private OnAccountClickListener clickListener;
+
+
 
     public interface OnAccountClickListener {
         void onAccountClick(AccountItem account);
     }
 
     public void setOnAccountClickListener(OnAccountClickListener listener) {
-        this.listener = listener;
+        this.clickListener = clickListener;
     }
 
-    public AccountAdapter(ArrayList<AccountItem> accounts) {
-        this.accounts = accounts;
+    public AccountAdapter(List<AccountItem> accounts) {
+        if (accounts !=null) {
+            this.accounts = accounts;
+        }
+    }
+
+    public void setSelectedAccount (List<AccountItem> newAccounts) {
+        if (newAccounts != null) {
+            this.accounts = newAccounts;
+            notifyDataSetChanged();
+        }
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_account, parent, false);
 
@@ -44,44 +56,36 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AccountAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder( ViewHolder holder, int position) {
         AccountItem account = accounts.get(position);
         holder.tvAccount.setText(account.getAccountName());
-        holder.accountNext.setVisibility(View.GONE);
-        if (!account.getAccountName().isEmpty()) {
-            holder.accountNext.setVisibility(View.VISIBLE);
-        }
 
-        holder.clAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (listener != null) {
-                    listener.onAccountClick(account);
-                }
+        holder.accountNext.setVisibility(View.GONE);
+
+        holder.itemView.setOnClickListener(v -> {
+            if (clickListener != null) {
+                clickListener.onAccountClick(account);
             }
         });
-
     }
+
+
+
+
 
     @Override
     public int getItemCount() {
-        return 0;
+        return accounts != null ? accounts.size() : 0;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-
         TextView tvAccount;
-        ImageView accountNext;
-
-        ConstraintLayout clAccount;
-
+        View accountNext;
 
         ViewHolder(View view) {
             super(view);
-
             tvAccount = view.findViewById(R.id.tvAccount);
             accountNext = view.findViewById(R.id.accountNext);
-            clAccount = view.findViewById(R.id.clAccount);
         }
     }
 }
