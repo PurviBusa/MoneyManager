@@ -35,12 +35,14 @@ import com.example.moneymanager.Class.CustomKeyboard;
 import com.example.moneymanager.R;
 import com.example.moneymanager.adapter.AccountAdapter;
 import com.example.moneymanager.adapter.CategoryRecyclerAdapter;
+import com.example.moneymanager.adapter.SubCategoryAdapter;
 import com.example.moneymanager.customs.keyboardListner;
 import com.example.moneymanager.models.AccountItem;
 import com.example.moneymanager.models.CategoryItem;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -62,13 +64,15 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
     View amount_view, date_view, category_view, account_view, note_view;
     private static CustomKeyboard customKeyboard;
 
-    RecyclerView categoryRecyclerView,account_recycler;
-    ConstraintLayout category_main;
+    RecyclerView categoryRecyclerView, account_recycler, subcategory_recycler;
+
     CategoryRecyclerAdapter categoryAdapter;
+    SubCategoryAdapter subCategoryAdapter;
 
     AccountAdapter accountAdapter;
     ArrayList<CategoryItem> categoryList;
     ArrayList<AccountItem> accountList;
+
 
 
     @Override
@@ -89,7 +93,10 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
         txt_amount.requestFocus();
         setButtonSelection("income");
         showCustomKeyboard();
+
+
     }
+
 
     private void initViews() {
         income_button = findViewById(R.id.income_button);
@@ -103,7 +110,6 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
         income_account = findViewById(R.id.income_account);
         income_note = findViewById(R.id.income_note);
         gride_custom = findViewById(R.id.gride_custom);
-        categoryRecyclerView = findViewById(R.id.category_recycler);
         category_item = findViewById(R.id.category_item);
         customKeyboard = findViewById(R.id.custom_key);
         img_more = findViewById(R.id.img_more);
@@ -115,6 +121,7 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
         account_item = findViewById(R.id.account_item);
         save_button = findViewById(R.id.save_button);
         account_recycler = findViewById(R.id.account_recycler);
+
 
         txt_amount.setShowSoftInputOnFocus(false);
         income_category.setShowSoftInputOnFocus(false);
@@ -133,6 +140,7 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
 
     }
 
+
     private void setupAmountRecycler() {
         accountList = new ArrayList<>();
         accountList.add(new AccountItem("Cash"));
@@ -143,36 +151,59 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
         accountAdapter = new AccountAdapter(accountList);
         accountAdapter.setOnAccountClickListener(accountItem -> {
             income_account.setText(accountItem.getAccountName());
-            gride_custom.setVisibility(GONE);
-            category_item.setVisibility(GONE);
+
+            income_account.clearFocus();
+            txt_amount.requestFocus();
+
+            account_item.setVisibility(GONE);
+            txt_amount.setVisibility(VISIBLE);
 
 
         });
-        account_recycler.setLayoutManager(new GridLayoutManager(this,3));
+        account_recycler.setLayoutManager(new GridLayoutManager(this, 3));
         account_recycler.setAdapter(accountAdapter);
 
     }
 
 
     private void setupCategoryRecycler() {
+        categoryRecyclerView = findViewById(R.id.category_recycler);
+        subcategory_recycler = findViewById(R.id.subcategory_recycler);
+
         categoryList = new ArrayList<>();
-        categoryList.add(new CategoryItem("Salary"));
-        categoryList.add(new CategoryItem("Petty Cash"));
-        categoryList.add(new CategoryItem("Bonus"));
-        categoryList.add(new CategoryItem("Award"));
-        categoryList.add(new CategoryItem("Allowance"));
+        categoryList.add(new CategoryItem("Salary", Arrays.asList("Monthly", "Bonus", "Incentives")));
+        categoryList.add(new CategoryItem("Petty Cash", Arrays.asList("Office", "Personal")));
+        categoryList.add(new CategoryItem("Bonus", Arrays.asList("Festival", "Performance")));
+        categoryList.add(new CategoryItem("Allowance", Arrays.asList("Travel", "Food", "Other")));
 
         categoryAdapter = new CategoryRecyclerAdapter(categoryList);
-        categoryAdapter.setOnCategoryClickListener(categoryItem -> {
-
-            income_category.setText(categoryItem.getCategoryName());
-            category_item.setVisibility(GONE);
-            account_item.setVisibility(GONE);
-        });
+        subCategoryAdapter = new SubCategoryAdapter(new ArrayList<>());
 
         categoryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         categoryRecyclerView.setAdapter(categoryAdapter);
+
+        subcategory_recycler.setLayoutManager(new LinearLayoutManager(this));
+        subcategory_recycler.setAdapter(subCategoryAdapter);
+
+        categoryAdapter.setOnCategoryClickListener(category -> {
+            selectedCategoryName = category.getCategoryName();
+
+            income_category.setText(selectedCategoryName);
+
+            subCategoryAdapter.updateList(category.getSubCategories());
+
+        });
+
+        subCategoryAdapter.setOnSubCategoryClickListener(sub -> {
+
+            income_category.setText(selectedCategoryName + " /  " + sub);
+
+            category_item.setVisibility(GONE);
+            account_item.setVisibility(VISIBLE);
+        });
     }
+
+    public String selectedCategoryName = "";
 
     private void setupListeners() {
         img_backarrow.setOnClickListener(v -> onBackPressed());
@@ -181,6 +212,8 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
 
 
         txt_amount.setOnFocusChangeListener((v, hasFocus) -> {
+
+
             if (hasFocus) {
                 gride_custom.setVisibility(VISIBLE);
                 category_item.setVisibility(GONE);
@@ -237,12 +270,12 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
         });
         income_account.setOnFocusChangeListener((v, hasFocus) -> {
 
-                if (hasFocus) {
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    View view = income_account;
-                    if (imm != null) {
-                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                    }
+            if (hasFocus) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                View view = income_account;
+                if (imm != null) {
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
                 gride_custom.setVisibility(GONE);
                 category_item.setVisibility(GONE);
                 account_item.setVisibility(VISIBLE);
@@ -274,12 +307,16 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
         current_date.setOnClickListener(v -> {
             date_view.setBackgroundColor(ContextCompat.getColor(this, colorTheme));
             openDatePicker();
+
+
         });
 
 
         current_time.setOnClickListener(v -> {
             date_view.setBackgroundColor(ContextCompat.getColor(this, colorTheme));
             openTimePicker();
+
+
         });
     }
 
@@ -345,6 +382,7 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
             selectedDate.set(year, month, dayOfMonth);
             SimpleDateFormat dateFormat = new SimpleDateFormat(" dd/MM/yyyy (EEE)", Locale.getDefault());
             current_date.setText(dateFormat.format(selectedDate.getTime()));
+            txt_amount.requestFocus();
         }, YEAR, MONTH, DATE);
 
 
@@ -371,6 +409,7 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
             String formattedTime = timeFormat.format(selectedTime.getTime());
 
             current_time.setText(formattedTime);
+            txt_amount.requestFocus();
         }, HOUR, MINUTE, false);
 
         timePickerDialog.setOnDismissListener(dialog ->
@@ -416,6 +455,13 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
             case "-":
                 isNegative = !isNegative;
                 break;
+
+            case "DONE":
+
+                txt_amount.clearFocus();
+                income_category.requestFocus();
+                return;
+
             default:
                 numberPart += value;
                 break;
@@ -428,10 +474,10 @@ public class AddActivity extends AppCompatActivity implements keyboardListner {
     @Override
 
     public void onBackPressed() {
-        if (customKeyboard.getVisibility() == VISIBLE || category_item.getVisibility() == VISIBLE) {
+        if (customKeyboard.getVisibility() == VISIBLE || category_item.getVisibility() == VISIBLE || account_item.getVisibility() == VISIBLE) {
             customKeyboard.setVisibility(GONE);
             category_item.setVisibility(GONE);
-
+            account_item.setVisibility(GONE);
 
             getWindow().getDecorView().clearFocus();
         } else {

@@ -22,7 +22,7 @@ public abstract class MoneyManagerDatabase extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                                     MoneyManagerDatabase.class, "money_manager_db")
                             .fallbackToDestructiveMigration()
-                            .allowMainThreadQueries() // (avoid in production)
+                            .allowMainThreadQueries()
                             .build();
                 }
             }

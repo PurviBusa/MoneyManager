@@ -66,14 +66,15 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:layout_marginStart="@dimen/_10sdp"
             android:text="@string/subcategory"
             android:textSize="@dimen/_13sdp"/>
 
         <androidx.appcompat.widget.SwitchCompat
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_15sdp" />
 

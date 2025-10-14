@@ -16,10 +16,9 @@ import com.example.moneymanager.models.CategoryItem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecyclerAdapter.ViewHolder>  {
+public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecyclerAdapter.ViewHolder> {
 
     private List<CategoryItem> categories;
-
     private OnCategoryClickListener listener;
 
     public interface OnCategoryClickListener {
@@ -30,26 +29,27 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
         this.listener = listener;
     }
 
-    public CategoryRecyclerAdapter(ArrayList<CategoryItem> categories) {
-        this.categories = categories;
+    public CategoryRecyclerAdapter(List<CategoryItem> categories) {
+        this.categories = (categories != null) ? categories : new ArrayList<>();
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_category, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         CategoryItem category = categories.get(position);
-        holder.tvCategory.setText(category.getCategoryName());
-        holder.ivNext.setVisibility(View.GONE);
-        if (!category.getSubCategory().isEmpty()) {
-            holder.ivNext.setVisibility(View.VISIBLE);
-        }
+
+        String name = (category.getCategoryName() != null) ? category.getCategoryName() : "";
+        holder.tvCategory.setText(name);
+
+        holder.ivNext.setVisibility(name.isEmpty() ? View.GONE : View.VISIBLE);
+
         holder.clMain.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onCategoryClick(category);
@@ -59,7 +59,7 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
 
     @Override
     public int getItemCount() {
-        return categories.size();
+        return (categories != null) ? categories.size() : 0;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

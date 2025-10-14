@@ -6,14 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputConnection;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.moneymanager.R;
-import com.example.moneymanager.adapter.CategoryRecyclerAdapter;
 import com.example.moneymanager.customs.keyboardListner;
 
 import java.util.ArrayList;
@@ -27,9 +23,7 @@ public class CustomKeyboard extends RelativeLayout implements View.OnClickListen
     private ImageView img_backSpace, img_calculator, img_currency, img_close;
 
 
-
     private keyboardListner listner;
-
 
 
     public CustomKeyboard(Context context, keyboardListner listner) {
@@ -103,11 +97,15 @@ public class CustomKeyboard extends RelativeLayout implements View.OnClickListen
 
         if (id == R.id.txt_minus) {
             listner.setValue("-");
-
         } else if (id == R.id.img_backSpace) {
             listner.setValue("DEL");
+        } else if (id == R.id.txt_done) {
+            listner.setValue("DONE");
+        } else if (id == R.id.txt_dot || id == R.id.txt_0 || id == R.id.txt_1 ||
+                id == R.id.txt_2 || id == R.id.txt_3 || id == R.id.txt_4 ||
+                id == R.id.txt_5 || id == R.id.txt_6 || id == R.id.txt_7 ||
+                id == R.id.txt_8 || id == R.id.txt_9) {
 
-        } else if (view instanceof TextView) {
             String value = ((TextView) view).getText().toString();
             listner.setValue(value);
         }

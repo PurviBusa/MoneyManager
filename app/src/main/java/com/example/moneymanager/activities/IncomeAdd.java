@@ -1,32 +1,60 @@
 package com.example.moneymanager.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.moneymanager.R;
+import com.example.moneymanager.database.MoneyManagerDatabase;
+import com.example.moneymanager.entity.MoneyManager;
 
 public class IncomeAdd extends AppCompatActivity {
+
+    EditText categoryET;
+    TextView tvSave;
+    ImageView back_incomeCategory;
+    MoneyManagerDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.incomeadd_category);
-        ImageView back_incomeCategory;
 
+
+        categoryET = findViewById(R.id.categoryET);
+        tvSave = findViewById(R.id.tvSave);
         back_incomeCategory = findViewById(R.id.back_incomeCategory);
+        database = MoneyManagerDatabase.getDB(this);
 
-        back_incomeCategory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
+        back_incomeCategory.setOnClickListener(v -> onBackPressed());
+
+
+        tvSave.setOnClickListener(v -> {
+            String categoryName = categoryET.getText().toString().trim();
+
+            if (categoryName.isEmpty()) {
+                Toast.makeText(IncomeAdd.this, "Please enter category name", Toast.LENGTH_SHORT).show();
+                return;
             }
+
+
+            MoneyManager moneyManager = new MoneyManager(categoryName);
+
+
+            database.moneyManagerDao().insert(moneyManager);
+
+            Toast.makeText(IncomeAdd.this, "Category saved", Toast.LENGTH_SHORT).show();
+
+
+
+            setResult(RESULT_OK);
+            finish();
         });
     }
 }

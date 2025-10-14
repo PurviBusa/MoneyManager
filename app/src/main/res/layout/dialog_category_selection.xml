@@ -61,7 +61,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/category_recycler"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_200sdp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="vertical"
             android:layout_weight="1" />
@@ -69,12 +69,12 @@
         <View
             android:layout_width="@dimen/_1sdp"
             android:layout_height="match_parent"
-            android:background="@color/gray"/>
+            android:background="#EDE7E7"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/subcategory_recycler"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_200sdp"
             android:orientation="vertical"
             android:layout_weight="1" />
 
