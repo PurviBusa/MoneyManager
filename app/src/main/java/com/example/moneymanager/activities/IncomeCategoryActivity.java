@@ -33,6 +33,8 @@ public class IncomeCategoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_income_category);
 
+
+
         databaseHelper = MoneyManagerDatabase.getDB(this);
 
         income_plus = findViewById(R.id.income_plus);

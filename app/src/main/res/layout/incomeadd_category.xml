@@ -36,6 +36,7 @@
             android:textSize="@dimen/_15sdp" />
 
         <TextView
+            android:id="@+id/sub_category"
             android:layout_width="@dimen/_95sdp"
             android:layout_height="@dimen/_22sdp"
             android:layout_alignParentEnd="true"
