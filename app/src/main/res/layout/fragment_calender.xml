@@ -1,14 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:id="@+id/rootLinearLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.CalenderFragment">
+    android:orientation="vertical"
+    tools:context=".fragments.CalendarFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!-- Weekdays Header -->
+    <LinearLayout
+        android:id="@+id/ll_calender"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/newgray"
+        android:padding="@dimen/_4sdp"
+       >
 
-</FrameLayout>
+        <TextView
+            android:text="Sun"
+            style="@style/DayHeaderStyle"
+            android:textColor="#F44336"/>
+
+        <TextView
+            android:text="Mon"
+            style="@style/DayHeaderStyle"/>
+
+        <TextView
+            android:text="Tue"
+            style="@style/DayHeaderStyle"/>
+
+        <TextView
+            android:text="Wed"
+            style="@style/DayHeaderStyle"/>
+
+        <TextView
+            android:text="Thu"
+            style="@style/DayHeaderStyle"/>
+
+        <TextView
+            android:text="Fri"
+            style="@style/DayHeaderStyle"/>
+
+        <TextView
+            android:text="Sat"
+            style="@style/DayHeaderStyle"
+            android:textColor="#2196F3"/>
+
+    </LinearLayout>
+
+    <View
+
+        android:layout_width="match_parent"
+        android:layout_height="0.7dp"
+        android:layout_below="@id/ll_calender"
+        android:background="@color/stroke" />
+
+    <GridView
+        android:id="@+id/calendarGrid"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:numColumns="7"
+        android:horizontalSpacing="1dp"
+        android:verticalSpacing="1dp"
+        android:background="@color/stroke"
+        android:listSelector="@android:color/transparent"
+        android:scrollbars="none"
+        android:overScrollMode="never"
+        android:fadingEdge="none" />
+
+</LinearLayout>

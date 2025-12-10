@@ -51,9 +51,10 @@ public class IncomeAdd extends AppCompatActivity {
                 Toast.makeText(IncomeAdd.this, "Please enter category name", Toast.LENGTH_SHORT).show();
                 return;
             }
-
+            int maxPosition = database.moneyManagerDao().getMaxPosition();
 
             MoneyManager moneyManager = new MoneyManager(categoryName);
+            moneyManager.setPosition(maxPosition + 1);
 
 
             database.moneyManagerDao().insert(moneyManager);

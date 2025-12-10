@@ -111,7 +111,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/txtexp"
             android:orientation="horizontal">
 
             <TextView
@@ -124,10 +123,11 @@
                 android:textSize="@dimen/_13sdp" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_200sdp"
+                android:gravity="end"
                 android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:text="@string/on"
                 android:textColor="@color/orange"
                 android:textSize="@dimen/_13sdp" />
@@ -209,10 +209,11 @@
                 android:textSize="@dimen/_13sdp" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_130sdp"
+                android:gravity="end"
                 android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:text="@string/gbp"
                 android:textColor="@color/orange"
                 android:textSize="@dimen/_13sdp" />
@@ -244,11 +245,12 @@
                 android:textSize="@dimen/_13sdp" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_100sdp"
+                android:gravity="end"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:text="@string/daily"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:textColor="@color/orange"
                 android:textSize="@dimen/_13sdp" />
 
@@ -269,12 +271,13 @@
                 android:textSize="@dimen/_13sdp" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_150sdp"
+                android:gravity="end"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:text="@string/every_1"
                 android:textColor="@color/orange"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:textSize="@dimen/_13sdp" />
 
         </LinearLayout>
@@ -294,12 +297,13 @@
                 android:textSize="@dimen/_13sdp" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_160sdp"
+                android:gravity="end"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:text="@string/sunday"
                 android:textColor="@color/orange"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:textSize="@dimen/_13sdp" />
 
         </LinearLayout>

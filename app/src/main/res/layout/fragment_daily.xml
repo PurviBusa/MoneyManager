@@ -1,52 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".fragments.DailyFragment">
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerList"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/daily_viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingHorizontal="15dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="70dp" />
-
-    <LinearLayout
-        android:id="@+id/linearNoData"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_centerInParent="true">
-
-
-        <ImageView
-            android:layout_width="@dimen/_180sdp"
-            android:layout_height="@dimen/_180sdp"
-            android:src="@drawable/nodata_image" />
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/linearNoData"
-        android:gravity="center"
-        android:layout_centerInParent="true">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="No Data Available"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:textColor="@color/gray"
-            android:textSize="@dimen/_17sdp"/>
-    </LinearLayout>
-
+        android:layout_height="match_parent" />
 
 
 </RelativeLayout>

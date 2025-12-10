@@ -24,25 +24,26 @@
             android:layout_height="@dimen/_25sdp"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/_7sdp"
-            android:padding="@dimen/_2sdp"
+            android:padding="@dimen/_4sdp"
             android:src="@drawable/setting" />
 
         <TextView
             android:id="@+id/configuration"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_33sdp"
-            android:layout_marginVertical="@dimen/_10sdp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/_40sdp"
             android:text="Configuration"
-            android:textSize="@dimen/_16sdp"
+            android:textSize="@dimen/_14sdp"
             android:textStyle="bold" />
 
         <ImageView
             android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
             android:layout_marginVertical="@dimen/_10sdp"
-            android:layout_marginStart="@dimen/_265sdp"
-            android:padding="@dimen/_2sdp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:padding="@dimen/_5sdp"
             android:src="@drawable/confimorearrow" />
 
     </androidx.cardview.widget.CardView>
@@ -63,24 +64,25 @@
             android:layout_height="@dimen/_25sdp"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/_7sdp"
-            android:padding="@dimen/_2sdp"
+            android:padding="@dimen/_4sdp"
             android:src="@drawable/account" />
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_33sdp"
-            android:layout_marginVertical="@dimen/_10sdp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/_40sdp"
             android:text="Account"
-            android:textSize="@dimen/_16sdp"
+            android:textSize="@dimen/_14sdp"
             android:textStyle="bold" />
 
         <ImageView
             android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
             android:layout_marginVertical="@dimen/_10sdp"
-            android:layout_marginStart="@dimen/_265sdp"
-            android:padding="@dimen/_2sdp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:padding="@dimen/_5sdp"
             android:src="@drawable/confimorearrow" />
 
     </androidx.cardview.widget.CardView>
@@ -101,24 +103,25 @@
             android:layout_height="@dimen/_25sdp"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/_7sdp"
-            android:padding="@dimen/_2sdp"
+            android:padding="@dimen/_4sdp"
             android:src="@drawable/password" />
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_33sdp"
-            android:layout_marginVertical="@dimen/_10sdp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/_40sdp"
             android:text="Passcode"
-            android:textSize="@dimen/_16sdp"
+            android:textSize="@dimen/_14sdp"
             android:textStyle="bold" />
 
         <ImageView
             android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
             android:layout_marginVertical="@dimen/_10sdp"
-            android:layout_marginStart="@dimen/_265sdp"
-            android:padding="@dimen/_2sdp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:padding="@dimen/_5sdp"
             android:src="@drawable/confimorearrow" />
 
     </androidx.cardview.widget.CardView>
@@ -137,24 +140,26 @@
             android:layout_height="@dimen/_25sdp"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/_7sdp"
-            android:padding="@dimen/_2sdp"
+            android:padding="@dimen/_4sdp"
             android:src="@drawable/feedback" />
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_33sdp"
-            android:layout_marginVertical="@dimen/_10sdp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/_40sdp"
             android:text="Feedback"
-            android:textSize="@dimen/_16sdp"
+            android:singleLine="true"
+            android:textSize="@dimen/_14sdp"
             android:textStyle="bold" />
 
         <ImageView
             android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
             android:layout_marginVertical="@dimen/_10sdp"
-            android:layout_marginStart="@dimen/_265sdp"
-            android:padding="@dimen/_2sdp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:padding="@dimen/_5sdp"
             android:src="@drawable/confimorearrow" />
 
     </androidx.cardview.widget.CardView>

@@ -28,4 +28,11 @@
     <string name="text">Text</string>
     <string name="save">Save</string>
     <string name="category">Category</string>
+    <string name="date">Date</string>
+    <string name="this_month">THIS MONTH</string>
+    <string name="jan">JAN</string>
+    <string name="feb">FEB</string>
+    <string name="mar">MAR</string>
+    <string name="apr">APR</string>
+    <string name="feb_2025">FEB 2025</string>
 </resources>

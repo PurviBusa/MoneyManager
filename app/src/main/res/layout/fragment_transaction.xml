@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_trans"
@@ -30,7 +31,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/_21sdp"
             android:padding="@dimen/_1sdp"
-            android:text="FEB 2025"
+            android:text="@string/feb_2025"
             android:textColor="@color/black"
             android:textSize="@dimen/_15sdp"
             android:textStyle="bold" />
@@ -247,7 +248,6 @@
         android:layout_width="match_parent"
         android:layout_height="0.7dp"
         android:layout_below="@id/linear"
-
         android:background="@color/stroke" />
 
 
@@ -362,10 +362,11 @@
 
     <ImageView
         android:id="@+id/btnAdd"
-        android:layout_width="@dimen/_43sdp"
-        android:layout_height="@dimen/_43sdp"
+        android:layout_width="@dimen/_48sdp"
+        android:layout_height="@dimen/_48sdp"
+        android:padding="@dimen/_5sdp"
         android:layout_alignParentEnd="true"
-        android:layout_margin="@dimen/_20sdp"
+        android:layout_margin="@dimen/_10sdp"
         android:layout_alignParentBottom="true"
         android:src="@drawable/add" />
 

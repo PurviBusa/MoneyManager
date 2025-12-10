@@ -5,7 +5,7 @@
     android:background="#FAF7F7"
     android:id="@+id/account_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <RelativeLayout
         android:id="@+id/rlAccount"
@@ -22,7 +22,6 @@
             android:text="Accounts"
             android:textColor="@color/white"
             android:textSize="@dimen/_15sdp" />
-
 
         <ImageView
             android:id="@+id/img_edit"
@@ -47,16 +46,16 @@
     </RelativeLayout>
 
     <RelativeLayout
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/rlAccount"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/_100sdp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/account_recycler"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_200sdp"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="3"

@@ -23,12 +23,14 @@ public class TransViewPagerAdpter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
+
         return mFragmentList.get(position);
     }
 
     @Override
     public int getCount() {
         return mFragmentList.size();
+
     }
 
     public void addFrag(Fragment fragment, String title) {
@@ -38,6 +40,7 @@ public class TransViewPagerAdpter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
+
         return mFragmentTitleList.get(position);
     }
 

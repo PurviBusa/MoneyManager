@@ -47,8 +47,11 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
 
         String name = (category.getCategoryName() != null) ? category.getCategoryName() : "";
         holder.tvCategory.setText(name);
-
-        holder.ivNext.setVisibility(name.isEmpty() ? View.GONE : View.VISIBLE);
+        if (category.getSubCategories() != null && !category.getSubCategories().isEmpty()) {
+            holder.ivNext.setVisibility(View.VISIBLE);
+        } else {
+            holder.ivNext.setVisibility(View.GONE);
+        }
 
         holder.clMain.setOnClickListener(v -> {
             if (listener != null) {

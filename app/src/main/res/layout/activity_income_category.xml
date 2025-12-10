@@ -74,9 +74,13 @@
             android:textSize="@dimen/_13sdp"/>
 
         <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/sub_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_15sdp" />
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:checked="true"
+            app:trackTint="@color/switch_track_selector"
+            app:thumbTint="@color/switch_thumb_selector"/>
 
     </LinearLayout>
 
@@ -86,6 +90,8 @@
         android:layout_height="@dimen/_1sdp"
         android:layout_below="@id/llSUb"
         android:background="#E7E3E3" />
+
+
 
     <View
         android:id="@+id/view2"
